@@ -38,7 +38,6 @@
       color: #F6B17A;
     }
 
-    /* ======== Navbar Custom Style ======== */
     .custom-navbar {
       background-color: #ffffff;
       transition: background-color 0.3s ease, box-shadow 0.3s ease;
