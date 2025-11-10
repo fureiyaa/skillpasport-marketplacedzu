@@ -10,115 +10,114 @@
 
   <!-- Font Awesome -->
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+<style>
+  /* ======== Top Bar ======== */
+  .top-bar {
+    background-color: #1e213b;
+    color: #ffffff;
+    font-size: 14px;
+    padding: 6px 0;
+  }
 
-  <style>
-    /* ======== Top Bar ======== */
-    .top-bar {
-      background-color: #1e213b;
-      color: #ffffff;
-      font-size: 14px;
-      padding: 6px 0;
-    }
+  .top-bar a {
+    color: #ffffff;
+    text-decoration: none;
+    transition: color 0.3s;
+  }
 
-    .top-bar .container {
-      width: 100%;
-      margin: auto;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
+  .top-bar a:hover {
+    color: #F6B17A;
+  }
 
-    .top-bar a {
-      color: #ffffff;
-      text-decoration: none;
-      transition: color 0.3s;
-    }
+  /* ======== Navbar ======== */
+  .custom-navbar {
+    background-color: #ffffff;
+    transition: all 0.4s ease;
+    padding: 22px 0;
+    box-shadow: none;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+  }
 
-    .top-bar a:hover {
-      color: #F6B17A;
-    }
+  /* Efek saat discroll */
+  .custom-navbar.scrolled {
+    padding: 12px 0;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    animation: navbarSlide 0.4s ease forwards;
+  }
 
-    .custom-navbar {
-      background-color: #ffffff;
-      transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  /* Animasi muncul halus */
+  @keyframes navbarSlide {
+    0% {
+      transform: translateY(-20px);
+      opacity: 0.7;
     }
+    100% {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
 
-    .custom-navbar.scrolled {
-      background-color: #1e213b;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
-    }
+  /* Warna teks & ikon */
+  .navbar-brand, .nav-link, .fa {
+    color: #2D3250 !important;
+    transition: color 0.3s ease;
+  }
 
-    .navbar-brand {
-      color: #F6B17A !important;
-      font-size: 1.3rem;
-      letter-spacing: 0.5px;
-      font-weight: 700;
-    }
+  .nav-link:hover {
+    color: #F6B17A !important;
+  }
 
-    .text-peach {
-      color: #F6B17A !important;
-    }
+  /* Search Bar */
+  .search-input {
+    border: 2px solid #424769;
+    border-radius: 25px;
+    padding-left: 15px;
+    color: #2D3250;
+  }
 
-    .nav-link {
-      color: #2D3250 !important;
-      font-weight: 500;
-      transition: color 0.3s ease;
-    }
+  .search-input:focus {
+    outline: none;
+    box-shadow: 0 0 5px #7077A1;
+    border-color: #7077A1;
+  }
 
-    .nav-link:hover {
-      color: #F6B17A !important;
-    }
+  /* Tombol */
+  .btn-peach {
+    background-color: #F6B17A;
+    border: none;
+    color: #2D3250;
+    border-radius: 25px;
+    transition: all 0.3s ease;
+    font-weight: 600;
+  }
 
-    /* Search Input */
-    .search-input {
-      border: 2px solid #424769;
-      border-radius: 25px;
-      padding-left: 15px;
-      color: #2D3250;
-    }
+  .btn-peach:hover {
+    background-color: #f8c28f;
+  }
 
-    .search-input:focus {
-      outline: none;
-      box-shadow: 0 0 5px #7077A1;
-      border-color: #7077A1;
-    }
+  .btn-outline-peach {
+    border: 2px solid #F6B17A;
+    color: #F6B17A;
+    border-radius: 25px;
+    transition: all 0.3s ease;
+    font-weight: 600;
+  }
 
-    /* Buttons */
-    .btn-peach {
-      background-color: #F6B17A;
-      border: none;
-      color: #2D3250;
-      border-radius: 25px;
-      transition: all 0.3s ease;
-      font-weight: 600;
-    }
+  .btn-outline-peach:hover {
+    background-color: #F6B17A;
+    color: #2D3250;
+  }
 
-    .btn-peach:hover {
-      background-color: #f8c28f;
-    }
-
-    .btn-outline-peach {
-      border: 2px solid #F6B17A;
-      color: #F6B17A;
-      border-radius: 25px;
-      transition: all 0.3s ease;
-      font-weight: 600;
-    }
-
-    .btn-outline-peach:hover {
-      background-color: #F6B17A;
-      color: #2D3250;
-    }
-
-    /* Badge */
-    .bg-peach {
-      background-color: #F6B17A !important;
-    }
-  </style>
+  footer.footer-custom {
+    background-color: #f8f9fa;
+    color: #555;
+  }
+</style>
 </head>
 
 <body>
-
   <!-- ======== Top Bar ======== -->
   <div class="top-bar">
     <div class="container">
@@ -180,15 +179,24 @@
       </div>
     </div>
   </nav>
-
+<div>
+    @yield('content')
+</div>
+<footer class="text-center py-3 footer-custom">
+    <small>&copy; {{ date('Y') }} EduMart - Marketplace Sekolah. All rights reserved.</small>
+</footer>
   <!-- Bootstrap JS -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 
   <!-- Navbar Scroll Effect -->
   <script>
     window.addEventListener('scroll', function() {
-      const navbar = document.querySelector('.custom-navbar');
-      navbar.classList.toggle('scrolled', window.scrollY > 50);
+        const navbar = document.querySelector('.custom-navbar');
+        if (window.scrollY > 50) {
+        navbar.classList.add('scrolled');
+        } else {
+        navbar.classList.remove('scrolled');
+        }
     });
   </script>
 
