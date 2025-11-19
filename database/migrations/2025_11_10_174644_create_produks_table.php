@@ -18,6 +18,7 @@ return new class extends Migration
             $table->integer('stok')->default(0);
             $table->text('deskripsi')->nullable();
             $table->date('tanggal_upload')->nullable();
+            // $table->enum('kategori', ['alat tulis', 'makanan & minuman', 'pakaian','jasa']);
 
             // FK ke tabel dengan PK = id
             $table->foreignId('kategori_id')->constrained('kategoris')->cascadeOnDelete();

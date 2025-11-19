@@ -17,9 +17,11 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        'name',
-        'email',
+        'nama',
+        'kontak',
+        'username',
         'password',
+        'role',
     ];
 
     /**
@@ -44,4 +46,8 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+    public function toko(){
+    return $this->hasOne(Toko::class);
+}
+
 }

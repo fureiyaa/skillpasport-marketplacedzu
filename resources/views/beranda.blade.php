@@ -1,184 +1,345 @@
 @extends('template')
+
 @section('content')
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EduMart - Marketplace Sekolah</title>
+<div class="homepage">
 
-    {{-- Bootstrap & FontAwesome --}}
-    <link rel="stylesheet" href="{{ asset('assets/bootstrap/css/bootstrap.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('fontawesome/css/all.min.css') }}">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+<style>
+/* ============================================================
+   SCOPED CSS — HANYA BISA MENGUBAH ELEMEN DI DALAM .homepage
+   ============================================================ */
+.homepage {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
 
-    <style>
-        /* === BANNER === */
-        .carousel-item img {
-            transition: transform 0.6s ease-in-out, opacity 0.6s ease-in-out;
+/* ---------------- BANNER ---------------- */
+.homepage-banner-wrapper {
+    width: 100%;
+    height: 600px;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #f8f9fa;
+}
+
+.homepage-banner-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    transition: .6s ease;
+}
+
+.homepage-banner-img:hover {
+    transform: scale(1.02);
+    opacity: 0.95;
+}
+
+        :root {
+            --primary: #202250;
+            --secondary: #424769;
+            --accent: #7077A1;
+            --light: #F5DAD2;
+            --dark: #2A2A2A;
+            --success: #76817A;
+            --edi: #F6B17A;
         }
-        .carousel-item img:hover {
-            transform: scale(1.02);
-            opacity: 0.95;
+
+        body {
+            background-color: #f8f9fa;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
-        .banner-wrapper {
-            width: 100%;
-            height: 500px; /* kamu bisa ubah misal 400-500px sesuai kebutuhan */
+
+        .btn-primary {
+            background-color: var(--primary);
+            border-color: var(--primary);
+        }
+        .btn-primary:hover {
+            background-color: var(--edi);
+            color: var(--primary);
+            border-color: var(--edi);
+        }
+
+        .btn-outline-primary {
+            color: var(--primary);
+            border-color: var(--primary);
+        }
+
+        .btn-outline-primary:hover {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        .card {
+            border: none;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        /* === CATEGORY CARD WITH COLORED OVERLAY === */
+        .category-wrapper {
+            position: relative;
+            z-index: 10; /* TARUH DI DEPAN BANNER */
+            margin-top: -200px;
+            background-color: rgba(255, 255, 255, 0.95); /* lebih elegan */
+            backdrop-filter: blur(6px); /* estetis premium */
+            padding: 30px;
+            border-radius: 15px;
+        }
+        .category-card {
+            height: 150px;
+            border-radius: 14px;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            position: relative;
             overflow: hidden;
             display: flex;
             align-items: center;
             justify-content: center;
-            background-color: #f8f9fa; /* fallback background */
-            }
-
-        .banner-img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover; /* menjaga rasio dan crop otomatis */
-            object-position: center; /* pastikan gambar di-center */
-            transition: transform 0.6s ease, opacity 0.6s ease;
-            }
-
-        .banner-img:hover {
-            transform: scale(1.02);
-            opacity: 0.95;
-            }
-
-        /* === CARD KATEGORI === */
-        .category-card {
-            border: none;
-            border-radius: 15px;
-            transition: all 0.3s ease;
-            background-color: #fff;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+            transition: .4s ease;
         }
+
+        /* Overlay gradasi transparan – NUANSA ORANGE & NAVY */
+        .category-card::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background-color: rgba(32, 34, 80, 0.685) ;
+        }
+
         .category-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 8px 18px rgba(0,0,0,0.15);
-        }
-        .category-card i {
-            transition: transform 0.3s ease, color 0.3s ease;
-        }
-        .category-card:hover i {
-            transform: scale(1.15);
-            color: #F6B17A;
-        }
-        .category-card h5 {
-            color: #2D3250;
-            transition: color 0.3s ease;
-        }
-        .category-card:hover h5 {
-            color: #424769;
+            transform: translateY(-6px) scale(1.03);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.3);
         }
 
-        /* === PROMO SECTION === */
-        .promo-section {
-            background-color: #2D3250;
+        /* Ikon dan teks di atas overlay */
+        .category-card .text-center {
+            position: relative;
+            z-index: 2;
             color: white;
-            transition: background 0.4s ease;
-        }
-        .promo-section:hover {
-            background-color: #424769;
-        }
-        .promo-section .highlight {
-            color: #F6B17A;
+            font-weight: 600;
         }
 
-        /* === TOMBOL INTERAKTIF === */
-        .hover-scale {
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-        .hover-scale:hover {
-            transform: scale(1.1);
-            box-shadow: 0 6px 15px rgba(255,255,255,0.4);
-        }
 
-        /* === FOOTER === */
-        .footer-custom {
-            background-color: #424769;
-            color: white;
+        .price-original {
+            text-decoration: line-through;
+            color: #6c757d;
             font-size: 0.9rem;
         }
-        .footer-custom small {
-            opacity: 0.8;
-            transition: opacity 0.3s;
+
+        .price-discount {
+            color: #dc3545;
+            font-weight: bold;
         }
-        .footer-custom:hover small {
-            opacity: 1;
+
+
+        .badge-category {
+            background-color: var(--accent);
+            color: white;
         }
-    </style>
-</head>
-<body class="min-vh-100">
-    <!-- Banner Carousel -->
+        .ikon {
+            font-size: 2.5rem;
+        }
+        .judul-kategori {
+            font-weight: 700;
+            text-align: center;
+        }
+
+</style>
     <div id="bannerCarousel" class="carousel slide" data-bs-ride="carousel">
-    <div class="carousel-inner">
-        <div class="carousel-item active">
-        <div class="banner-wrapper">
-            <img src="{{ asset('asset/image/banner1.png') }}" class="banner-img" alt="Banner 1">
+        <div class="carousel-inner">
+
+            <div class="carousel-item active">
+                <div class="homepage-banner-wrapper">
+                    <img src="{{ asset('asset/image/makan.jpg') }}" class="homepage-banner-img">
+                </div>
+            </div>
+
+            <div class="carousel-item">
+                <div class="homepage-banner-wrapper">
+                    <img src="{{ asset('asset/image/baju.jpg') }}" class="homepage-banner-img">
+                </div>
+            </div>
+            <div class="carousel-item">
+                <div class="homepage-banner-wrapper">
+                    <img src="{{ asset('asset/image/alat2.jpg') }}" class="homepage-banner-img">
+                </div>
+            </div>
         </div>
-        </div>
-        <div class="carousel-item">
-        <div class="banner-wrapper">
-            <img src="{{ asset('asset/image/banner2.png') }}" class="banner-img" alt="Banner 2">
-        </div>
-        </div>
-        <div class="carousel-item">
-        <div class="banner-wrapper">
-            <img src="{{ asset('asset/image/banner3.png') }}" class="banner-img" alt="Banner 3">
-        </div>
-        </div>
-    </div>
-    <button class="carousel-control-prev" type="button" data-bs-target="#bannerCarousel" data-bs-slide="prev">
-        <span class="carousel-control-prev-icon"></span>
-    </button>
-    <button class="carousel-control-next" type="button" data-bs-target="#bannerCarousel" data-bs-slide="next">
-        <span class="carousel-control-next-icon"></span>
-    </button>
+
+        <button class="carousel-control-prev" type="button" data-bs-target="#bannerCarousel" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon"></span>
+        </button>
+
+        <button class="carousel-control-next" type="button" data-bs-target="#bannerCarousel" data-bs-slide="next">
+            <span class="carousel-control-next-icon"></span>
+        </button>
     </div>
 
 
-    <!-- Kategori Produk -->
-    <section class="py-5 bg-light">
-      <div class="container">
-        <h2 class="text-center mb-5 fw-semibold text-dark animate__animated animate__fadeInDown">Kategori Produk Sekolah</h2>
-        <div class="row text-center">
-          <div class="col-md-3 mb-4 animate__animated animate__fadeInUp animate__delay-1s">
-            <div class="card category-card p-4">
-              <i class="fa-solid fa-book fa-3x text-primary mb-3"></i>
-              <h5>Alat Tulis</h5>
-              <p class="small text-muted">Lengkapi kebutuhan menulis dan belajar siswa.</p>
-              <a href="#" class="btn btn-primary btn-sm">Lihat Produk</a>
+    <!-- Kategori -->
+    <section class="py-5">
+        <div class="container category-wrapper shadow-sm">
+            <h2 class="judul-kategori mb-4">Kategori Produk</h2>
+            <div class="row g-3">
+                <div class="col-md-3 col-6 ">
+                    <a href="{{ route('kategori.pilih', 1) }}">
+                        <div class="category-card" style="background-image: url('{{ asset('asset/image/tulis.jpeg') }}')">
+                            <div class="text-center">
+                                <i class="ikon fa-solid fa-book"></i>
+                                <p class="mt-2">Buku & Alat Tulis</p>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+
+                <div class="col-md-3 col-6">
+                    <a href="{{ route('kategori.pilih', 2) }}">
+                        <div class="category-card" style="background-image: url('{{ asset('asset/image/jasa.jpeg') }}')">
+                            <div class="text-center">
+                                <i class="ikon fa-solid fa-briefcase"></i>
+                                <p class="mt-2">Jasa & Bantuan</p>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+
+                <div class="col-md-3 col-6">
+                    <a href="{{ route('kategori.pilih', 3) }}">
+                        <div class="category-card" style="background-image: url('{{ asset('asset/image/food1.jpeg') }}')">
+                            <div class="text-center">
+                                <i class="ikon fa-solid fa-utensils"></i>
+                                <p class="mt-2">Makanan & Minuman</p>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+
+                <div class="col-md-3 col-6">
+                    <a href="{{ route('kategori.pilih', 4) }}">
+                        <div class="category-card" style="background-image: url('{{ asset('asset/image/fashion.jpeg') }}')">
+                            <div class="text-center">
+                                <i class="ikon fa-solid fa-shirt"></i>
+                                <p class="mt-2">Fashion</p>
+                            </div>
+                        </div>
+                    </a>
+                </div>
             </div>
-          </div>
-          <div class="col-md-3 mb-4 animate__animated animate__fadeInUp animate__delay-2s">
-            <div class="card category-card p-4">
-              <i class="fa-solid fa-shirt fa-3x text-primary mb-3"></i>
-              <h5>Seragam Sekolah</h5>
-              <p class="small text-muted">Berbagai seragam dan atribut sekolah tersedia.</p>
-              <a href="#" class="btn btn-primary btn-sm">Lihat Produk</a>
-            </div>
-          </div>
-          <div class="col-md-3 mb-4 animate__animated animate__fadeInUp animate__delay-3s">
-            <div class="card category-card p-4">
-              <i class="fa-solid fa-laptop fa-3x text-primary mb-3"></i>
-              <h5>Elektronik Edukasi</h5>
-              <p class="small text-muted">Laptop, proyektor, dan perangkat belajar digital.</p>
-              <a href="#" class="btn btn-primary btn-sm">Lihat Produk</a>
-            </div>
-          </div>
-          <div class="col-md-3 mb-4 animate__animated animate__fadeInUp animate__delay-4s">
-            <div class="card category-card p-4">
-              <i class="fa-solid fa-basket-shopping fa-3x text-primary mb-3"></i>
-              <h5>Kebutuhan Harian</h5>
-              <p class="small text-muted">Snack, minuman, dan kebutuhan siswa lainnya.</p>
-              <a href="#" class="btn btn-primary btn-sm">Lihat Produk</a>
-            </div>
-          </div>
         </div>
-      </div>
     </section>
+<section class="py-5 bg-light">
+    <div class="container">
 
-    <script src="{{ asset('assets/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
-</body>
-</html>
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h2>Produk Terbaru</h2>
+            <a href="{{ route('produk.all') }}" class="btn btn-outline-primary">Lihat Semua</a>
+        </div>
+
+        <div class="row">
+
+            <!-- Banner kiri -->
+            <div class="col-lg-4">
+                <img src="{{ asset('asset/image/promo2.png') }}"
+                     class="img-fluid rounded shadow-sm"
+                     style="height: 750px; object-fit: cover;">
+            </div>
+
+            <!-- Produk kanan -->
+            <div class="col-lg-8">
+                <div class="row g-4">
+                    @foreach ($produk->take(8) as $item)
+                    @php
+                        $img = $item->gambar->first();
+                    @endphp
+                    <div class="col-lg-3 col-md-4 col-6">
+                        <div class="card h-100">
+                            <a href="{{ route('produk.detail', $item->id) }}">
+                                <img src="{{ $img ? asset('asset/image/' . $img->nama_gambar) : asset('asset/image/placeholder.png') }}"
+                                    class="card-img-top"
+                                    alt="{{ $item->nama_produk }}"
+                                    style="height: 160px; object-fit: cover;">
+                            </a>
+                            <div class="card-body">
+                                <span class="badge badge-category mb-2">
+                                    {{ $item->kategori->nama_kategori ?? 'Lainnya' }}
+                                </span>
+                                <h6 class="card-title">
+                                    {{ Str::limit($item->nama_produk, 40) }}
+                                </h6>
+                                <div class="d-flex align-items-center">
+                                    <span class="price-discount me-2">
+                                        Rp {{ number_format($item->harga, 0, ',', '.') }}
+                                    </span>
+
+                                    @if ($item->harga_original)
+                                    <span class="price-original">
+                                        Rp {{ number_format($item->harga_original, 0, ',', '.') }}
+                                    </span>
+                                    @endif
+                                </div>
+                            </div>
+                            <div class="card-footer bg-white border-0">
+                                <button class="btn btn-primary w-100">
+                                    Pesan Via WhatsApp
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    @endforeach
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+    <!-- Toko Terpopuler -->
+<section class="py-5">
+    <div class="container">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h2>Toko Terpopuler</h2>
+            <a href="{{ route('toko.all') }}" class="btn btn-outline-primary">Lihat Semua</a>
+        </div>
+        <div class="row g-4">
+            <!-- Toko 1 -->
+            @foreach ($toko as $item)
+            <div class="col-lg-3 col-md-6">
+                <div class="card text-center">
+                    <div class="card-body">
+                        <img src="{{ asset('asset/image/' . $item->gambar) }}"
+                            class="rounded-circle mb-3"
+                            alt="Toko"
+                            style="width: 80px; height: 80px; object-fit: cover;">
+
+                        <h5 class="card-title">{{ $item->nama_toko }}</h5>
+
+                        <p class="card-text text-muted" style="min-height: 60px;">
+                            {{ Str::limit($item->deskripsi, 70) }}
+                        </p>
+
+                        <div class="d-flex justify-content-center">
+                            <span class="badge bg-light text-dark me-2">
+                                <i class="bi bi-star-fill text-warning"></i> 4.8
+                            </span>
+                            <span class="badge bg-light text-dark">
+                                <i class="bi bi-bag-check"></i> {{ rand(80, 500) }} produk
+                            </span>
+                        </div>
+                        <a href="#" class="btn btn-outline-primary mt-3">Kunjungi Toko</a>
+                    </div>
+                </div>
+            </div>
+            @endforeach
+        </div>
+    </div>
+</section>
+
+
+</div> {{-- END homepage --}}
 @endsection

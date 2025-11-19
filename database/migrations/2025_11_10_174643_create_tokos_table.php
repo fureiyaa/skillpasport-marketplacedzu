@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('gambar',100)->nullable();
             $table->string('kontak_toko',13)->nullable();
             $table->text('alamat')->nullable();
-
+            $table->enum('status', ['pending', 'approved', 'rejected'])->default('pending');
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
 
             $table->timestamps();
