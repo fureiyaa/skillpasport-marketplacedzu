@@ -187,49 +187,21 @@
         <div class="container category-wrapper shadow-sm">
             <h2 class="judul-kategori mb-4">Kategori Produk</h2>
             <div class="row g-3">
-                <div class="col-md-3 col-6 ">
-                    <a href="{{ route('kategori.pilih', 1) }}">
-                        <div class="category-card" style="background-image: url('{{ asset('asset/image/tulis.jpeg') }}')">
-                            <div class="text-center">
-                                <i class="ikon fa-solid fa-book"></i>
-                                <p class="mt-2">Buku & Alat Tulis</p>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-
+                @foreach ($kategori as $k)
                 <div class="col-md-3 col-6">
-                    <a href="{{ route('kategori.pilih', 2) }}">
-                        <div class="category-card" style="background-image: url('{{ asset('asset/image/jasa.jpeg') }}')">
-                            <div class="text-center">
-                                <i class="ikon fa-solid fa-briefcase"></i>
-                                <p class="mt-2">Jasa & Bantuan</p>
-                            </div>
-                        </div>
-                    </a>
-                </div>
+                    <a href="{{ route('kategori.pilih', $k->id) }}">
+                        <div class="category-card"
+                            style="background-image: url('{{ asset('asset/kategori/'.$k->background) }}')">
 
-                <div class="col-md-3 col-6">
-                    <a href="{{ route('kategori.pilih', 3) }}">
-                        <div class="category-card" style="background-image: url('{{ asset('asset/image/food1.jpeg') }}')">
                             <div class="text-center">
-                                <i class="ikon fa-solid fa-utensils"></i>
-                                <p class="mt-2">Makanan & Minuman</p>
+                                <i class="{{ $k->icon }} ikon"></i>
+                                <p class="mt-2">{{ $k->nama_kategori }}</p>
                             </div>
-                        </div>
-                    </a>
-                </div>
 
-                <div class="col-md-3 col-6">
-                    <a href="{{ route('kategori.pilih', 4) }}">
-                        <div class="category-card" style="background-image: url('{{ asset('asset/image/fashion.jpeg') }}')">
-                            <div class="text-center">
-                                <i class="ikon fa-solid fa-shirt"></i>
-                                <p class="mt-2">Fashion</p>
-                            </div>
                         </div>
                     </a>
                 </div>
+                @endforeach
             </div>
         </div>
     </section>
@@ -331,7 +303,7 @@
                                 <i class="bi bi-bag-check"></i> {{ rand(80, 500) }} produk
                             </span>
                         </div>
-                        <a href="#" class="btn btn-outline-primary mt-3">Kunjungi Toko</a>
+                        <a href="{{ route('toko.detail', $item->id) }}" class="btn btn-outline-primary mt-3">Kunjungi Toko</a>
                     </div>
                 </div>
             </div>

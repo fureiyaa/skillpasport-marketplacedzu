@@ -41,15 +41,15 @@
         color: var(--primary);
         border-color: var(--edi);
     }
+
     .btn-outline-primary {
-        background-color: var(--primary);
-        color: white;
+        color: var(--primary);
         border-color: var(--primary);
     }
+
     .btn-outline-primary:hover {
-        background-color: var(--edi);
-        color: var(--primary);
-        border-color: var(--edi);
+        background-color: var(--primary);
+        color: white;
     }
     .card {
         border: none;
@@ -75,6 +75,9 @@
     }
     .thumb:hover {
         border-color: #202250;
+    }
+    .harga{
+        color: var(--edi)
     }
     .box {
         background: white;
@@ -125,7 +128,7 @@
 
                 <h2 class="fw-bold mt-2">{{ $produk->nama_produk }}</h2>
 
-                <h3 class="text-success fw-bold mb-4">
+                <h3 class="harga fw-bold mb-4">
                     Rp {{ number_format($produk->harga, 0, ',', '.') }}
                 </h3>
                 <span class="badge bg-secondary mb-4 d-inline-block px-3 py-1 rounded-pill">
@@ -133,16 +136,20 @@
                 </span>
 
                 <!-- Info Toko -->
-                <div class="d-flex align-items-center mb-4">
+                <div class="d-flex justify-content-between">
+                    <div class="toko d-flex align-items-center mb-4">
+                        <img src="{{ asset('asset/image/' . $produk->toko->gambar) }}"
+                            class="rounded-circle"
+                            alt="Toko"
+                            style="width: 45px; height: 45px; object-fit: cover;">
 
-                    <img src="{{ asset('asset/image/' . $produk->toko->gambar) }}"
-                        class="rounded-circle"
-                        alt="Toko"
-                        style="width: 45px; height: 45px; object-fit: cover;">
-
-                    <div class="ms-3">
-                        <p class="mb-0 fw-semibold">{{ $produk->toko->nama_toko }}</p>
-                        <small class="text-muted">Penjual Terpercaya</small>
+                        <div class="ms-3">
+                            <p class="mb-0 fw-semibold">{{ $produk->toko->nama_toko }}</p>
+                            <small class="text-muted">Penjual Terpercaya</small>
+                        </div>
+                    </div>
+                    <div class="kunjungi">
+                        <a href="{{ route('toko.detail', $produk->toko->id) }}" class="btn btn-outline-primary mt-3">Kunjungi Toko</a>
                     </div>
 
                 </div>
@@ -181,7 +188,9 @@
 
         <div class="col-lg-3 col-md-4 col-6">
             <div class="card h-100">
-                <img src="{{ $img ? asset('asset/image/' . $img->nama_gambar) : asset('asset/image/placeholder.png') }}" class="card-img-top" alt="{{ $item->nama_produk }}"style="height: 300px; object-fit: cover;">
+                <a href="{{ route('produk.detail', $item->id) }}">
+                    <img src="{{ $img ? asset('asset/image/' . $img->nama_gambar) : asset('asset/image/placeholder.png') }}" class="card-img-top" alt="{{ $item->nama_produk }}"style="height: 300px; object-fit: cover;">
+                </a>
                 <div class="card-body">
                     <span class="badge badge-category mb-2">{{ $item->kategori->nama_kategori ?? 'Lainnya' }}</span>
                     <h5 class="card-title">{{ $item->nama_produk }}</h5> <div class="d-flex align-items-center">

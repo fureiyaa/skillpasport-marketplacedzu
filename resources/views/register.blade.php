@@ -47,7 +47,7 @@
 
         {{-- LOGO --}}
         <div class="text-center mb-3">
-            <img src="{{ asset('asset/image/logo.png') }}" width="90">
+            <img src="{{ asset('asset/image/siswas.png') }}" height="80">
         </div>
 
         <h3 class="text-center login-title mb-4">Daftar Akun Baru</h3>

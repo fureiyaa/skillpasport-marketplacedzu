@@ -18,7 +18,19 @@
 </style>
 
 <div class="container">
+@if(isset($notif) && $notif)
+    <div class="alert alert-danger alert-dismissible fade show mt-3" role="alert">
+        <strong>Pemberitahuan!</strong><br>
+        {{ $notif->pesan }}
 
+        <form action="{{ route('member.notif.clear', $notif->id) }}" method="POST" class="mt-2">
+            @csrf
+            <button class="btn btn-sm btn-outline-light">Tandai Sudah Dibaca</button>
+        </form>
+
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    </div>
+@endif
     {{-- ===========================
          1. STATUS PENDING
     ============================ --}}
@@ -63,6 +75,9 @@
 
                         <label class="fw-bold">Deskripsi</label>
                         <textarea name="deskripsi" class="form-control mb-3" rows="3" required></textarea>
+
+                        <label class="fw-bold">Alamat</label>
+                        <textarea name="alamat" class="form-control mb-3" rows="3" required></textarea>
 
                         <label class="fw-bold">Kontak</label>
                         <input type="text" name="kontak_toko" class="form-control mb-3" required>
@@ -119,6 +134,9 @@
 
                             <label>Deskripsi</label>
                             <textarea name="deskripsi" class="form-control mb-2" rows="3">{{ $toko->deskripsi }}</textarea>
+
+                            <label>Alamat</label>
+                            <textarea name="alamat" class="form-control mb-2" rows="3">{{ $toko->alamat }}</textarea>
 
                             <label>Kontak</label>
                             <input type="text" name="kontak_toko" class="form-control mb-3" value="{{ $toko->kontak_toko }}">

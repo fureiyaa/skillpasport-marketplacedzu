@@ -42,12 +42,31 @@ class DatabaseSeeder extends Seeder
 
 
         /* ======================================================
-            KATEGORI
+            KATEGORI (SUDAH PAKAI ICON & BACKGROUND)
         ======================================================= */
-        $kategori1 = Kategori::create(['nama_kategori' => 'Buku & Alat Tulis']);
-        $kategori2 = Kategori::create(['nama_kategori' => 'Jasa & Bantuan']);
-        $kategori3 = Kategori::create(['nama_kategori' => 'Makanan & Minuman']);
-        $kategori4 = Kategori::create(['nama_kategori' => 'Fashion']);
+        $kategori1 = Kategori::create([
+            'nama_kategori' => 'Buku & Alat Tulis',
+            'icon' => 'fa-solid fa-book',
+            'background' => 'tulis.jpeg'
+        ]);
+
+        $kategori2 = Kategori::create([
+            'nama_kategori' => 'Jasa & Bantuan',
+            'icon' => 'fa-solid fa-briefcase',
+            'background' => 'jasa.jpeg'
+        ]);
+
+        $kategori3 = Kategori::create([
+            'nama_kategori' => 'Makanan & Minuman',
+            'icon' => 'fa-solid fa-utensils',
+            'background' => 'food1.jpeg'
+        ]);
+
+        $kategori4 = Kategori::create([
+            'nama_kategori' => 'Fashion',
+            'icon' => 'fa-solid fa-shirt',
+            'background' => 'fashion.jpeg'
+        ]);
 
 
         /* ======================================================
@@ -81,6 +100,9 @@ class DatabaseSeeder extends Seeder
         ]);
 
 
+        /* ======================================================
+            PRODUK
+        ======================================================= */
         $produk1 = Produk::create([
             'kategori_id' => $kategori1->id,
             'toko_id' => $toko1->id,
@@ -153,44 +175,18 @@ class DatabaseSeeder extends Seeder
             'deskripsi' => 'Kaos desain trendy untuk pelajar.',
         ]);
 
-        GambarProduk::create([
-            'produk_id' => $produk1->id,
-            'nama_gambar' => 'tulis.jpeg'
-        ]);
 
-        GambarProduk::create([
-            'produk_id' => $produk2->id,
-            'nama_gambar' => 'produkjasa.jpeg'
-        ]);
+        /* ======================================================
+            GAMBAR PRODUK
+        ======================================================= */
+        GambarProduk::create(['produk_id' => $produk1->id, 'nama_gambar' => 'tulis.jpeg']);
+        GambarProduk::create(['produk_id' => $produk2->id, 'nama_gambar' => 'produkjasa.jpeg']);
+        GambarProduk::create(['produk_id' => $produk3->id, 'nama_gambar' => 'ayam.jpeg']);
+        GambarProduk::create(['produk_id' => $produk4->id, 'nama_gambar' => 'produk.jpeg']);
 
-        GambarProduk::create([
-            'produk_id' => $produk3->id,
-            'nama_gambar' => 'ayam.jpeg'
-        ]);
-
-        GambarProduk::create([
-            'produk_id' => $produk4->id,
-            'nama_gambar' => 'produk.jpeg'
-        ]);
-
-        GambarProduk::create([
-            'produk_id' => $produk5->id,
-            'nama_gambar' => 'tulis.jpeg'
-        ]);
-
-        GambarProduk::create([
-            'produk_id' => $produk6->id,
-            'nama_gambar' => 'produkjasa.jpeg'
-        ]);
-
-        GambarProduk::create([
-            'produk_id' => $produk7->id,
-            'nama_gambar' => 'ayam.jpeg'
-        ]);
-
-        GambarProduk::create([
-            'produk_id' => $produk8->id,
-            'nama_gambar' => 'produk.jpeg'
-        ]);
+        GambarProduk::create(['produk_id' => $produk5->id, 'nama_gambar' => 'tulis.jpeg']);
+        GambarProduk::create(['produk_id' => $produk6->id, 'nama_gambar' => 'produkjasa.jpeg']);
+        GambarProduk::create(['produk_id' => $produk7->id, 'nama_gambar' => 'ayam.jpeg']);
+        GambarProduk::create(['produk_id' => $produk8->id, 'nama_gambar' => 'produk.jpeg']);
     }
 }

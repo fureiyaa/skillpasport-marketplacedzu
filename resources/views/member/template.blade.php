@@ -7,7 +7,7 @@
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-    
+
 
     <style>
         :root {
@@ -93,12 +93,12 @@
     <div class="menu">
         <a href="{{ route('member.dashboard') }}"
            class="{{ request()->routeIs('member.dashboard') ? 'active' : '' }}">
-            <i class="fa-solid fa-gauge"></i> Dashboard
+            Dashboard
         </a>
 
         <a href="{{ route('member.kelola') }}"
            class="{{ request()->routeIs('member.kelola') ? 'active' : '' }}">
-            <i class="fa-solid fa-box"></i> Kelola Toko
+            Kelola Toko
         </a>
         <form action="{{ route('logout') }}" method="POST" class="w-100">
             @csrf

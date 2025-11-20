@@ -31,5 +31,64 @@ class KategoriController extends Controller
 
         return view('kategori', $data);
     }
+   public function index()
+    {
+        $data['kategori'] = Kategori::all();
+        return view('admin.kategori', $data);
+    }
+
+    public function store(Request $request)
+    {
+        $request->validate([
+            'nama_kategori' => 'required',
+            'icon' => 'required',
+            'background' => 'image|max:4096'
+        ]);
+
+        $fileName = null;
+
+        if ($request->hasFile('background')) {
+            $file = $request->background;
+            $fileName = time().rand().'.'.$file->extension();
+            $file->move(public_path('asset/kategori'), $fileName);
+        }
+
+        Kategori::create([
+            'nama_kategori' => $request->nama_kategori,
+            'icon' => $request->icon,
+            'background' => $fileName
+        ]);
+
+        return back()->with('success', 'Kategori berhasil ditambahkan!');
+    }
+
+    public function update(Request $request, $id)
+    {
+        $kategori = Kategori::findOrFail($id);
+
+        $data = $request->validate([
+            'nama_kategori' => 'required',
+            'icon' => 'required',
+            'background' => 'image|max:4096'
+        ]);
+
+        if ($request->hasFile('background')) {
+            $file = $request->background;
+            $namaBaru = time().rand().'.'.$file->extension();
+            $file->move(public_path('asset/kategori'), $namaBaru);
+
+            $data['background'] = $namaBaru;
+        }
+
+        $kategori->update($data);
+
+        return back()->with('success', 'Kategori diperbarui!');
+    }
+
+    public function delete($id)
+    {
+        Kategori::where('id', $id)->delete();
+        return back()->with('success', 'Kategori berhasil dihapus!');
+    }
 
 }

@@ -46,8 +46,8 @@
     <div class="login-card">
 
         {{-- LOGO --}}
-        <div class="text-center mb-3">
-            <img src="{{ asset('asset/image/logo.png') }}" width="90">
+        <div class="text-center mb-5">
+            <img src="{{ asset('asset/image/siswas.png') }}" height="80">
         </div>
 
         <h3 class="text-center login-title mb-4">Masuk ke Akun Anda</h3>
@@ -65,7 +65,7 @@
         <form method="POST" action="{{ route('login.process') }}">
             @csrf
 
-            <label>Email</label>
+            <label>Username</label>
             <input type="text"
                 name="username"
                 class="form-control mb-3"

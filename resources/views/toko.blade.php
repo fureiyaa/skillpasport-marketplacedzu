@@ -71,7 +71,7 @@
                                         <i class="bi bi-bag-check"></i> {{ rand(80, 500) }} produk
                                     </span>
                                 </div>
-                                <a href="#" class="btn btn-outline-primary mt-3">Kunjungi Toko</a>
+                                <a href="{{ route('toko.detail', $item->id) }}" class="btn btn-outline-primary mt-3">Kunjungi Toko</a>
                             </div>
                         </div>
                     </div>

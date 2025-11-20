@@ -75,7 +75,9 @@
         @endphp
         <div class="col-lg-3 col-md-4 col-6">
             <div class="card h-100">
-                <img src="{{ $img ? asset('asset/image/' . $img->nama_gambar) : asset('asset/image/placeholder.png') }}" class="card-img-top" alt="{{ $item->nama_produk }}"style="height: 300px; object-fit: cover;">
+                <a href="{{ route('produk.detail', $item->id) }}">
+                    <img src="{{ $img ? asset('asset/image/' . $img->nama_gambar) : asset('asset/image/placeholder.png') }}" class="card-img-top" alt="{{ $item->nama_produk }}"style="height: 300px; object-fit: cover;">
+                </a>
                 <div class="card-body">
                     <span class="badge badge-category mb-2">{{ $item->kategori->nama_kategori ?? 'Lainnya' }}</span>
                     <h5 class="card-title">{{ $item->nama_produk }}</h5> <div class="d-flex align-items-center">

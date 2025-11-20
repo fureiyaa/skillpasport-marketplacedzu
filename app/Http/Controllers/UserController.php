@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use App\Models\GambarProduk;
 use App\Models\Kategori;
+use App\Models\Notifikasi;
 use App\Models\Produk;
 use App\Models\Toko;
 use App\Models\User;
@@ -148,20 +149,42 @@ class UserController extends Controller
     {
         $user = Auth::user();
 
-        return view('member.dashboard', [
-            'toko' => $user->toko
-        ]);
+        $toko = $user->toko;
+        $produk = $toko ? $toko->produk()->latest()->get() : collect([]);
+
+        $notifikasi = Notifikasi::where('user_id', $user->id)
+            ->orderBy('id', 'DESC')
+            ->first();
+
+        return view('member.dashboard', compact('toko', 'produk', 'notifikasi'));
     }
+
+
+
 
     public function kelola()
     {
         $user = Auth::user();
+        $toko = $user->toko;
 
-        return view('member.kelola', [
-            'toko'   => $user->toko,               // toko yang dimiliki member
-            'produk' => $user->toko->produk ?? [] // semua produk toko tsb
-        ]);
+        // Ambil notifikasi milik user
+        $notif = Notifikasi::where('user_id', $user->id)
+                            ->orderBy('id', 'DESC')
+                            ->first();
+
+        // Produk toko
+        $produk = $toko ? $toko->produk()->with('gambar')->get() : [];
+
+        return view('member.kelola', compact('toko', 'produk', 'notif'));
     }
+
+    public function clearNotif($id)
+    {
+        Notifikasi::where('id', $id)->where('user_id', Auth::id())->delete();
+
+        return back()->with('success', 'Notifikasi sudah dibaca.');
+    }
+
 
     public function search(Request $request)
     {
