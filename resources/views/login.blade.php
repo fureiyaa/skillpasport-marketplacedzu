@@ -44,20 +44,16 @@
 
 <section class="login-section">
     <div class="login-card">
-
-        {{-- LOGO --}}
         <div class="text-center mb-5">
             <img src="{{ asset('asset/image/siswas.png') }}" height="80">
         </div>
 
         <h3 class="text-center login-title mb-4">Masuk ke Akun Anda</h3>
 
-        {{-- ERROR ALERT --}}
         @if (session('error'))
             <div class="alert alert-danger">{{ session('error') }}</div>
         @endif
 
-        {{-- SUCCESS ALERT --}}
         @if (session('success'))
             <div class="alert alert-success">{{ session('success') }}</div>
         @endif

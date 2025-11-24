@@ -80,13 +80,13 @@
             transform: translateY(-5px);
         }
 
-        /* === CATEGORY CARD WITH COLORED OVERLAY === */
+        /* kategori overlay */
         .category-wrapper {
             position: relative;
-            z-index: 10; /* TARUH DI DEPAN BANNER */
+            z-index: 10;
             margin-top: -200px;
-            background-color: rgba(255, 255, 255, 0.95); /* lebih elegan */
-            backdrop-filter: blur(6px); /* estetis premium */
+            background-color: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(6px);
             padding: 30px;
             border-radius: 15px;
         }
@@ -104,7 +104,7 @@
             transition: .4s ease;
         }
 
-        /* Overlay gradasi transparan – NUANSA ORANGE & NAVY */
+        /*overlay*/
         .category-card::after {
             content: "";
             position: absolute;
@@ -181,15 +181,13 @@
         </button>
     </div>
 
-
-    <!-- Kategori -->
     <section class="py-5">
         <div class="container category-wrapper shadow-sm">
             <h2 class="judul-kategori mb-4">Kategori Produk</h2>
             <div class="row g-3">
                 @foreach ($kategori as $k)
                 <div class="col-md-3 col-6">
-                    <a href="{{ route('kategori.pilih', $k->id) }}">
+                    <a href="{{ route('kategori.pilih', $k->id) }}" style="text-decoration: none">
                         <div class="category-card"
                             style="background-image: url('{{ asset('asset/kategori/'.$k->background) }}')">
 
@@ -205,113 +203,104 @@
             </div>
         </div>
     </section>
-<section class="py-5 bg-light">
-    <div class="container">
+    <section class="py-5 bg-light">
+        <div class="container">
 
-        <div class="d-flex justify-content-between align-items-center mb-4">
-            <h2>Produk Terbaru</h2>
-            <a href="{{ route('produk.all') }}" class="btn btn-outline-primary">Lihat Semua</a>
-        </div>
-
-        <div class="row">
-
-            <!-- Banner kiri -->
-            <div class="col-lg-4">
-                <img src="{{ asset('asset/image/promo2.png') }}"
-                     class="img-fluid rounded shadow-sm"
-                     style="height: 750px; object-fit: cover;">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h2>Produk Terbaru</h2>
+                <a href="{{ route('produk.all') }}" class="btn btn-outline-primary">Lihat Semua</a>
             </div>
 
-            <!-- Produk kanan -->
-            <div class="col-lg-8">
-                <div class="row g-4">
-                    @foreach ($produk->take(8) as $item)
-                    @php
-                        $img = $item->gambar->first();
-                    @endphp
-                    <div class="col-lg-3 col-md-4 col-6">
-                        <div class="card h-100">
-                            <a href="{{ route('produk.detail', $item->id) }}">
-                                <img src="{{ $img ? asset('asset/image/' . $img->nama_gambar) : asset('asset/image/placeholder.png') }}"
-                                    class="card-img-top"
-                                    alt="{{ $item->nama_produk }}"
-                                    style="height: 160px; object-fit: cover;">
-                            </a>
-                            <div class="card-body">
-                                <span class="badge badge-category mb-2">
-                                    {{ $item->kategori->nama_kategori ?? 'Lainnya' }}
-                                </span>
-                                <h6 class="card-title">
-                                    {{ Str::limit($item->nama_produk, 40) }}
-                                </h6>
-                                <div class="d-flex align-items-center">
-                                    <span class="price-discount me-2">
-                                        Rp {{ number_format($item->harga, 0, ',', '.') }}
+            <div class="row">
+                <div class="col-lg-4">
+                    <img src="{{ asset('asset/image/promo2.png') }}"
+                        class="img-fluid rounded shadow-sm"
+                        style="height: 750px; object-fit: cover;">
+                </div>
+                <div class="col-lg-8">
+                    <div class="row g-4">
+                        @foreach ($produk->take(8) as $item)
+                        @php
+                            $img = $item->gambar->first();
+                        @endphp
+                        <div class="col-lg-3 col-md-4 col-6">
+                            <div class="card h-100">
+                                <a href="{{ route('produk.detail', $item->id) }}">
+                                    <img src="{{ $img ? asset('asset/image/' . $img->nama_gambar) : asset('asset/image/placeholder.png') }}"
+                                        class="card-img-top"
+                                        alt="{{ $item->nama_produk }}"
+                                        style="height: 160px; object-fit: cover;">
+                                </a>
+                                <div class="card-body">
+                                    <span class="badge badge-category mb-2">
+                                        {{ $item->kategori->nama_kategori ?? 'Lainnya' }}
                                     </span>
+                                    <h6 class="card-title">
+                                        {{ Str::limit($item->nama_produk, 40) }}
+                                    </h6>
+                                    <div class="d-flex align-items-center">
+                                        <span class="price-discount me-2">
+                                            Rp {{ number_format($item->harga, 0, ',', '.') }}
+                                        </span>
 
-                                    @if ($item->harga_original)
-                                    <span class="price-original">
-                                        Rp {{ number_format($item->harga_original, 0, ',', '.') }}
-                                    </span>
-                                    @endif
+                                        @if ($item->harga_original)
+                                        <span class="price-original">
+                                            Rp {{ number_format($item->harga_original, 0, ',', '.') }}
+                                        </span>
+                                        @endif
+                                    </div>
+                                </div>
+                                <div class="card-footer bg-white border-0">
+                                    <button class="btn btn-primary w-100">
+                                        Pesan Via WhatsApp
+                                    </button>
                                 </div>
                             </div>
-                            <div class="card-footer bg-white border-0">
-                                <button class="btn btn-primary w-100">
-                                    Pesan Via WhatsApp
-                                </button>
+                        </div>
+                        @endforeach
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-5">
+        <div class="container">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h2>Toko Terpopuler</h2>
+                <a href="{{ route('toko.all') }}" class="btn btn-outline-primary">Lihat Semua</a>
+            </div>
+            <div class="row g-4">
+                @foreach ($toko as $item)
+                <div class="col-lg-3 col-md-6">
+                    <div class="card text-center">
+                        <div class="card-body">
+                            <img src="{{ asset('asset/image/' . $item->gambar) }}"
+                                class="rounded-circle mb-3"
+                                alt="Toko"
+                                style="width: 80px; height: 80px; object-fit: cover;">
+
+                            <h5 class="card-title">{{ $item->nama_toko }}</h5>
+
+                            <p class="card-text text-muted" style="min-height: 60px;">
+                                {{ Str::limit($item->deskripsi, 70) }}
+                            </p>
+
+                            <div class="d-flex justify-content-center">
+                                <span class="badge bg-light text-dark me-2">
+                                    <i class="bi bi-star-fill text-warning"></i> 4.8
+                                </span>
+                                <span class="badge bg-light text-dark">
+                                    <i class="bi bi-bag-check"></i> {{ rand(80, 500) }} produk
+                                </span>
                             </div>
+                            <a href="{{ route('toko.detail', $item->id) }}" class="btn btn-outline-primary mt-3">Kunjungi Toko</a>
                         </div>
                     </div>
-                    @endforeach
                 </div>
+                @endforeach
             </div>
         </div>
-    </div>
-</section>
-
-
-    <!-- Toko Terpopuler -->
-<section class="py-5">
-    <div class="container">
-        <div class="d-flex justify-content-between align-items-center mb-4">
-            <h2>Toko Terpopuler</h2>
-            <a href="{{ route('toko.all') }}" class="btn btn-outline-primary">Lihat Semua</a>
-        </div>
-        <div class="row g-4">
-            <!-- Toko 1 -->
-            @foreach ($toko as $item)
-            <div class="col-lg-3 col-md-6">
-                <div class="card text-center">
-                    <div class="card-body">
-                        <img src="{{ asset('asset/image/' . $item->gambar) }}"
-                            class="rounded-circle mb-3"
-                            alt="Toko"
-                            style="width: 80px; height: 80px; object-fit: cover;">
-
-                        <h5 class="card-title">{{ $item->nama_toko }}</h5>
-
-                        <p class="card-text text-muted" style="min-height: 60px;">
-                            {{ Str::limit($item->deskripsi, 70) }}
-                        </p>
-
-                        <div class="d-flex justify-content-center">
-                            <span class="badge bg-light text-dark me-2">
-                                <i class="bi bi-star-fill text-warning"></i> 4.8
-                            </span>
-                            <span class="badge bg-light text-dark">
-                                <i class="bi bi-bag-check"></i> {{ rand(80, 500) }} produk
-                            </span>
-                        </div>
-                        <a href="{{ route('toko.detail', $item->id) }}" class="btn btn-outline-primary mt-3">Kunjungi Toko</a>
-                    </div>
-                </div>
-            </div>
-            @endforeach
-        </div>
-    </div>
-</section>
-
-
-</div> {{-- END homepage --}}
+    </section>
+</div>
 @endsection

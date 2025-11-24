@@ -1,83 +1,127 @@
 @extends('admin.template')
 @section('content')
+
 <style>
+    :root {
+        --primary: #202250;
+        --secondary: #424769;
+        --accent: #7077A1;
+        --light: #F5DAD2;
+        --dark: #2A2A2A;
+        --success: #76817A;
+        --edi: #F6B17A;
+    }
+
     .card-custom {
         border-radius: 12px;
         overflow: hidden;
+        border: none;
+        box-shadow: 0 4px 10px rgba(0,0,0,.08);
     }
 
     table.dataTable thead th {
-        background: #1e3a8a !important;
-        color: white !important;
+        background: var(--primary) !important;
+        color: var(--light) !important;
         text-align: center;
-        vertical-align: middle;
     }
-
     table.dataTable tbody td {
-        vertical-align: middle;
         text-align: center;
+        vertical-align: middle;
     }
 
-    .table-img {
-        width: 65px;
-        height: 65px;
-        border-radius: 10px;
-        object-fit: cover;
-        border: 2px solid #eee;
-    }
-
-    .badge-soft {
+    /* BADGE ROLE */
+    .badge-admin {
+        background: var(--primary);
+        color: var(--light);
         padding: 6px 12px;
-        border-radius: 20px;
-        font-size: 12px;
+        border-radius: 25px;
+    }
+    .badge-member {
+        background: var(--success);
+        color: white;
+        padding: 6px 12px;
+        border-radius: 25px;
     }
 
-    .badge-pending {
-        background: #dbeafe;
-        color: #1d4ed8;
+    /* BUTTONS */
+    .btn-primary {
+        background: var(--primary);
+        border-color: var(--primary);
+    }
+    .btn-primary:hover {
+        background: var(--edi);
+        color: var(--dark);
+        border-color: var(--edi);
     }
 
-    .badge-approved {
-        background: #e5e7eb;
-        color: #374151;
+    .btn-warning {
+        background: var(--accent);
+        color: white;
+        border-color: var(--accent);
     }
-
-    .badge-reject {
-        background: #fef3c7;
-        color: #92400e;
+    .btn-warning:hover {
+        background: #5d6291;
+        color: white;
     }
 
     .btn-danger {
-        border-radius: 8px;
-        padding: 6px 14px;
+        background: var(--edi);
+        border-color: var(--edi);
+        color: var(--dark);
+    }
+    .btn-danger:hover {
+        background: #e49a55;
+        color: var(--dark);
     }
 
+    .btn-secondary {
+        background: var(--secondary);
+        border-color: var(--secondary);
+        color: white;
+    }
+    .btn-secondary:hover {
+        background: #3b3f5c;
+    }
+
+    /* INPUT DATATABLE */
     .dataTables_wrapper .dataTables_filter input {
         border-radius: 8px;
+        border: 1px solid #aaa;
         padding: 7px 10px;
-        border: 1px solid #ccc;
     }
-
     .dataTables_wrapper .dataTables_length select {
         border-radius: 8px;
-        border: 1px solid #ccc;
+        border: 1px solid #aaa;
         padding: 4px 6px;
     }
 
+    /* PAGINATION */
     .dataTables_paginate .paginate_button {
         border-radius: 6px !important;
     }
 
+    /* MODAL HEADERS */
+    .modal-header-primary {
+        background: var(--primary);
+        color: var(--light);
+    }
+    .modal-header-warning {
+        background: var(--accent);
+        color: white;
+    }
+    .modal-header-danger {
+        background: var(--edi);
+        color: var(--dark);
+    }
 </style>
+
 <div class="container mt-3">
     @if(session('success'))
         <div class="alert alert-success">{{ session('success') }}</div>
     @endif
-    @if(session('error'))
-        <div class="alert alert-danger">{{ session('error') }}</div>
-    @endif
-    <div class="card card-custom shadow-sm">
-        <div class="card-header bg-primary text-white py-3 px-4 d-flex justify-content-between align-items-center">
+
+    <div class="card card-custom">
+        <div class="card-header modal-header-primary d-flex justify-content-between align-items-center">
             <h5 class="mb-0 fw-bold">Daftar Semua User</h5>
 
             <button class="btn btn-light text-primary fw-bold"
@@ -86,9 +130,10 @@
                 + Tambah User
             </button>
         </div>
+
         <div class="card-body px-4">
             <table id="userTable" class="table table-bordered table-striped table-hover align-middle">
-                <thead class="table-light">
+                <thead>
                     <tr>
                         <th>Nama</th>
                         <th>Kontak</th>
@@ -104,59 +149,58 @@
                         <td>{{ $u->nama }}</td>
                         <td>{{ $u->kontak }}</td>
                         <td>{{ $u->username }}</td>
+
                         <td>
-                            <span class="badge {{ $u->role == 'admin' ? 'bg-primary' : 'bg-success' }}">
+                            <span class="{{ $u->role == 'admin' ? 'badge-admin' : 'badge-member' }}">
                                 {{ ucfirst($u->role) }}
                             </span>
                         </td>
 
                         <td>
                             <button class="btn btn-warning btn-sm"
-                                data-bs-toggle="modal"
-                                data-bs-target="#modalEditUser{{ $u->id }}">
+                                    data-bs-toggle="modal"
+                                    data-bs-target="#modalEditUser{{ $u->id }}">
                                 Edit
                             </button>
 
                             <button class="btn btn-danger btn-sm"
-                                data-bs-toggle="modal"
-                                data-bs-target="#modalDeleteUser{{ $u->id }}">
+                                    data-bs-toggle="modal"
+                                    data-bs-target="#modalDeleteUser{{ $u->id }}">
                                 Hapus
                             </button>
                         </td>
                     </tr>
                     @endforeach
                 </tbody>
+
             </table>
         </div>
     </div>
 </div>
 
-
-{{-- =============================
-     MODAL TAMBAH USER
-============================== --}}
+{{-- Modal Tambah --}}
 <div class="modal fade" id="modalTambahUser">
     <div class="modal-dialog">
         <form class="modal-content" method="POST" action="{{ route('admin.user.store') }}">
             @csrf
 
-            <div class="modal-header bg-primary text-white">
+            <div class="modal-header modal-header-primary">
                 <h5>Tambah User</h5>
                 <button class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
             </div>
 
             <div class="modal-body">
                 <label>Nama</label>
-                <input type="text" name="nama" class="form-control mb-2" required>
+                <input type="text" name="nama" class="form-control mb-3" required>
 
                 <label>Kontak</label>
-                <input type="text" name="kontak" class="form-control mb-2" required>
+                <input type="text" name="kontak" class="form-control mb-3" required>
 
                 <label>Username</label>
-                <input type="text" name="username" class="form-control mb-2" required>
+                <input type="text" name="username" class="form-control mb-3" required>
 
                 <label>Password</label>
-                <input type="password" name="password" class="form-control mb-2" required>
+                <input type="password" name="password" class="form-control mb-3" required>
 
                 <label>Role</label>
                 <select name="role" class="form-control" required>
@@ -173,35 +217,31 @@
     </div>
 </div>
 
-
-{{-- =============================
-     MODAL EDIT & DELETE USER
-============================== --}}
+{{-- Modal Edit & Delete --}}
 @foreach($users as $u)
 
-{{-- Modal Edit --}}
 <div class="modal fade" id="modalEditUser{{ $u->id }}">
     <div class="modal-dialog">
         <form class="modal-content" method="POST" action="{{ route('admin.user.update', $u->id) }}">
             @csrf
 
-            <div class="modal-header bg-warning">
+            <div class="modal-header modal-header-warning">
                 <h5>Edit User</h5>
                 <button class="btn-close" data-bs-dismiss="modal"></button>
             </div>
 
             <div class="modal-body">
                 <label>Nama</label>
-                <input type="text" name="nama" class="form-control mb-2" value="{{ $u->nama }}" required>
+                <input type="text" name="nama" value="{{ $u->nama }}" class="form-control mb-3">
 
                 <label>Kontak</label>
-                <input type="text" name="kontak" class="form-control mb-2" value="{{ $u->kontak }}" required>
+                <input type="text" name="kontak" value="{{ $u->kontak }}" class="form-control mb-3">
 
                 <label>Username</label>
-                <input type="text" name="username" class="form-control mb-2" value="{{ $u->username }}" required>
+                <input type="text" name="username" value="{{ $u->username }}" class="form-control mb-3">
 
-                <label>Password (kosongkan jika tidak diganti)</label>
-                <input type="password" name="password" class="form-control mb-2">
+                <label>Password (opsional)</label>
+                <input type="password" name="password" class="form-control mb-3">
 
                 <label>Role</label>
                 <select name="role" class="form-control">
@@ -218,19 +258,18 @@
     </div>
 </div>
 
-{{-- Modal Delete --}}
 <div class="modal fade" id="modalDeleteUser{{ $u->id }}">
     <div class="modal-dialog">
         <form class="modal-content" method="POST" action="{{ route('admin.user.delete', $u->id) }}">
             @csrf
 
-            <div class="modal-header bg-danger text-white">
+            <div class="modal-header modal-header-danger">
                 <h5>Hapus User</h5>
-                <button class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                <button class="btn-close" data-bs-dismiss="modal"></button>
             </div>
 
             <div class="modal-body">
-                <p>Apakah Anda yakin ingin menghapus user <strong>{{ $u->nama }}</strong>?</p>
+                <p>Yakin ingin menghapus user <strong>{{ $u->nama }}</strong>?</p>
             </div>
 
             <div class="modal-footer">
@@ -240,23 +279,25 @@
         </form>
     </div>
 </div>
+
 @endforeach
+
 <script>
 $(document).ready(function(){
     $('#userTable').DataTable({
-        "pageLength": 8,
-        "ordering": true,
-        "info": true,
-        "responsive": true,
-        "columnDefs": [
-            { targets: [4], orderable: false }  // hanya disable kolom aksi
+        pageLength: 8,
+        ordering: true,
+        responsive: true,
+        columnDefs: [
+            { targets: [4], orderable: false }
         ],
-        "language": {
-            "search": "Cari Toko:",
-            "lengthMenu": "Tampilkan _MENU_ data",
-            "zeroRecords": "Data tidak ditemukan",
+        language: {
+            search: "Cari User:",
+            lengthMenu: "Tampilkan _MENU_ data",
+            zeroRecords: "Data tidak ditemukan",
         }
     });
 });
 </script>
+
 @endsection

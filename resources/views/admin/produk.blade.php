@@ -2,14 +2,27 @@
 @section('content')
 
 <style>
+    :root {
+        --primary: #202250;
+        --secondary: #424769;
+        --accent: #7077A1;
+        --light: #F5DAD2;
+        --dark: #2A2A2A;
+        --success: #76817A;
+        --edi: #F6B17A;
+    }
+
     .card-custom {
         border-radius: 12px;
         overflow: hidden;
+        border: none;
+        box-shadow: 0 4px 10px rgba(0,0,0,.08);
     }
 
+    /* HEADER TABLE */
     table.dataTable thead th {
-        background: #1e3a8a !important;
-        color: white !important;
+        background: var(--primary) !important;
+        color: var(--light) !important;
         text-align: center;
         vertical-align: middle;
     }
@@ -19,6 +32,7 @@
         text-align: center;
     }
 
+    /* GAMBAR */
     .table-img {
         width: 65px;
         height: 65px;
@@ -27,53 +41,87 @@
         border: 2px solid #eee;
     }
 
+    /* BADGES */
     .badge-soft {
         padding: 6px 12px;
-        border-radius: 20px;
+        border-radius: 25px;
         font-size: 12px;
+        font-weight: 600;
     }
 
     .badge-kat {
-        background: #dbeafe;
-        color: #1d4ed8;
+        background: var(--light);
+        color: var(--accent);
     }
 
     .badge-toko {
-        background: #e5e7eb;
-        color: #374151;
+        background: var(--secondary);
+        color: white;
     }
 
     .badge-stok {
-        background: #fef3c7;
-        color: #92400e;
+        background: var(--edi);
+        color: var(--dark);
     }
 
-    .btn-danger {
+    /* BUTTONS */
+    .btn-danger-custom {
+        background: var(--edi);
+        border-color: var(--edi);
+        color: var(--dark);
+        border-radius: 8px;
+        padding: 6px 14px;
+        font-weight: 600;
+    }
+    .btn-danger-custom:hover {
+        background: #e39850;
+        color: var(--dark);
+    }
+
+    .btn-secondary-custom {
+        background: var(--secondary);
+        border-color: var(--secondary);
+        color: white;
         border-radius: 8px;
         padding: 6px 14px;
     }
 
+    /* DATATABLES */
     .dataTables_wrapper .dataTables_filter input {
         border-radius: 8px;
         padding: 7px 10px;
-        border: 1px solid #ccc;
+        border: 1px solid #aaa;
     }
 
     .dataTables_wrapper .dataTables_length select {
         border-radius: 8px;
-        border: 1px solid #ccc;
+        border: 1px solid #aaa;
         padding: 4px 6px;
     }
 
     .dataTables_paginate .paginate_button {
         border-radius: 6px !important;
     }
+
+    /* CARD HEADER */
+    .card-header-custom {
+        background: var(--primary);
+        color: var(--light);
+        padding: 14px 20px;
+    }
+
+    /* MODAL HEADER */
+    .modal-header-custom {
+        background: var(--primary);
+        color: var(--light);
+    }
 </style>
+
 
 <div class="container mt-3">
 
-    <div class="card card-custom shadow-sm">
-        <div class="card-header bg-primary text-white py-3 px-4">
+    <div class="card card-custom">
+        <div class="card-header card-header-custom">
             <h5 class="mb-0 fw-bold">Daftar Semua Produk</h5>
         </div>
 
@@ -127,7 +175,7 @@
                             </td>
 
                             <td>
-                                <button class="btn btn-danger btn-sm w-100"
+                                <button class="btn btn-danger-custom btn-sm w-100"
                                         data-bs-toggle="modal"
                                         data-bs-target="#modalDelete{{ $item->id }}">
                                     Hapus
@@ -141,7 +189,7 @@
                             <div class="modal-dialog">
                                 <div class="modal-content">
 
-                                    <div class="modal-header bg-danger text-white">
+                                    <div class="modal-header modal-header-custom">
                                         <h5 class="modal-title">Konfirmasi Hapus</h5>
                                         <button type="button" class="btn-close btn-close-white"
                                                 data-bs-dismiss="modal"></button>
@@ -153,10 +201,10 @@
                                     </div>
 
                                     <div class="modal-footer">
-                                        <button class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                                        <button class="btn btn-secondary-custom" data-bs-dismiss="modal">Batal</button>
                                         <form action="{{ route('admin.produk.delete', $item->id) }}" method="POST">
                                             @csrf
-                                            <button class="btn btn-danger">Hapus</button>
+                                            <button class="btn btn-danger-custom">Hapus</button>
                                         </form>
                                     </div>
 
@@ -173,19 +221,20 @@
 
 </div>
 
+
 <script>
 $(document).ready(function(){
     $('#produkTable').DataTable({
-        "pageLength": 8,
-        "ordering": true,
-        "info": true,
-        "responsive": true,
-        "columnDefs": [
+        pageLength: 8,
+        ordering: true,
+        info: true,
+        responsive: true,
+        columnDefs: [
             { orderable: false, targets: [0, 6] }
         ],
-        "language": {
-            "search": "Cari Produk:",
-            "lengthMenu": "Tampilkan _MENU_ data"
+        language: {
+            search: "Cari Produk:",
+            lengthMenu: "Tampilkan _MENU_ data"
         }
     });
 });

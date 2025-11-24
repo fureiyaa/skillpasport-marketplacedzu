@@ -188,7 +188,6 @@ class UserController extends Controller
 
     public function search(Request $request)
     {
-        // ambil dari ?search= atau ?q= (dua-duanya diterima)
         $keyword = $request->search ?? $request->q ?? '';
 
         if (!$keyword) {
@@ -205,10 +204,7 @@ class UserController extends Controller
             ->orWhere('deskripsi', 'like', "%$keyword%")
             ->get();
 
-        // Cari toko
-        $toko = Toko::where('nama_toko', 'like', "%$keyword%")
-            ->orWhere('deskripsi', 'like', "%$keyword%")
-            ->get();
+        $toko = Toko::where('nama_toko', 'like', "%$keyword%")->orWhere('deskripsi', 'like', "%$keyword%")->get();
 
         return view('search', compact('keyword', 'produk', 'toko'));
     }

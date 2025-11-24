@@ -57,21 +57,36 @@
     .card:hover {
         transform: translateY(-5px);
     }
+    .produk-card {
+        border: none;
+        border-radius: 12px;
+        transition: 0.3s;
+    }
+
+    .produk-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+    }
+
+    .price-original {
+        text-decoration: line-through;
+        color: #6c757d;
+        font-size: 0.85rem;
+    }
+
+    .kategori-page h2 {
+        font-size: 1.8rem;
+    }
 </style>
 <div class="container py-5 kategori-page">
-
-    {{-- ======= TITLE ======= --}}
     <div class="d-flex justify-content-between align-items-center mb-4">
         <h2 class="fw-bold" style="color: var(--primary);">
             Kategori: {{ $selectedKategori->nama_kategori }}
         </h2>
-
         <a href="/" class="btn btn-outline-primary">
             Kembali
         </a>
     </div>
-
-    {{-- ======= PRODUK ======= --}}
     <div class="row g-4">
 
         @foreach ($produk as $item)
@@ -98,29 +113,4 @@
         @endforeach
     </div>
 </div>
-
-{{-- ====== CSS CUSTOM KHUSUS PAGE INI ====== --}}
-<style>
-    .produk-card {
-        border: none;
-        border-radius: 12px;
-        transition: 0.3s;
-    }
-
-    .produk-card:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 6px 20px rgba(0,0,0,0.15);
-    }
-
-    .price-original {
-        text-decoration: line-through;
-        color: #6c757d;
-        font-size: 0.85rem;
-    }
-
-    .kategori-page h2 {
-        font-size: 1.8rem;
-    }
-</style>
-
 @endsection

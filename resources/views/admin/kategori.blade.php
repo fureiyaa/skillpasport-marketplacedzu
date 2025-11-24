@@ -1,85 +1,161 @@
 @extends('admin.template')
+@section('content')
 <style>
+    :root {
+        --primary: #202250;
+        --secondary: #424769;
+        --accent: #7077A1;
+        --light: #F5DAD2;
+        --dark: #2A2A2A;
+        --success: #76817A;
+        --edi: #F6B17A;
+    }
+
     .card-custom {
         border-radius: 12px;
         overflow: hidden;
+        border: none;
+        box-shadow: 0 4px 10px rgba(0,0,0,.08);
     }
 
+    /* HEADER TABLE */
     table.dataTable thead th {
-        background: #1e3a8a !important;
-        color: white !important;
+        background: var(--primary) !important;
+        color: var(--light) !important;
         text-align: center;
-        vertical-align: middle;
     }
 
     table.dataTable tbody td {
-        vertical-align: middle;
         text-align: center;
+        vertical-align: middle;
     }
 
-    .table-img {
-        width: 65px;
-        height: 65px;
-        border-radius: 10px;
-        object-fit: cover;
-        border: 2px solid #eee;
-    }
-
+    /* BADGE */
     .badge-soft {
         padding: 6px 12px;
-        border-radius: 20px;
+        border-radius: 25px;
         font-size: 12px;
+        font-weight: 600;
     }
 
     .badge-pending {
-        background: #dbeafe;
-        color: #1d4ed8;
+        background: var(--light);
+        color: var(--primary);
     }
 
     .badge-approved {
-        background: #e5e7eb;
-        color: #374151;
+        background: var(--success);
+        color: white;
     }
 
     .badge-reject {
-        background: #fef3c7;
-        color: #92400e;
+        background: var(--edi);
+        color: var(--dark);
+    }
+
+    /* BUTTONS */
+    .btn-primary {
+        background: var(--primary);
+        border-color: var(--primary);
+    }
+
+    .btn-primary:hover {
+        background: var(--edi);
+        color: var(--dark);
+        border-color: var(--edi);
+    }
+
+    .btn-warning {
+        background: var(--accent);
+        border-color: var(--accent);
+        color: white;
+    }
+    .btn-warning:hover {
+        background: #5e6291;
+        color: white;
     }
 
     .btn-danger {
-        border-radius: 8px;
-        padding: 6px 14px;
+        background: var(--edi);
+        border-color: var(--edi);
+        color: var(--dark);
+    }
+    .btn-danger:hover {
+        background: #db9652;
+        color: var(--dark);
     }
 
+    .btn-secondary {
+        background: var(--secondary);
+        border-color: var(--secondary);
+        color: white;
+    }
+    .btn-secondary:hover {
+        background: #3b3f5c;
+        color: white;
+    }
+
+    /* INPUT DATATABLE */
     .dataTables_wrapper .dataTables_filter input {
         border-radius: 8px;
         padding: 7px 10px;
-        border: 1px solid #ccc;
+        border: 1px solid #aaa;
     }
 
     .dataTables_wrapper .dataTables_length select {
         border-radius: 8px;
-        border: 1px solid #ccc;
+        border: 1px solid #aaa;
         padding: 4px 6px;
     }
 
+    /* PAGINATION */
     .dataTables_paginate .paginate_button {
         border-radius: 6px !important;
     }
 
-</style>
-@section('content')
-<div class="container mt-4">
-    <div class="card card-custom shadow-sm">
-        <div class="card-header bg-primary text-white py-3 px-4 d-flex justify-content-between align-items-center">
-            <h5 class="mb-0 fw-bold">Daftar Semua User</h5>
+    /* CARD HEADER */
+    .header-custom {
+        background: var(--primary);
+        color: var(--light);
+        padding: 14px 18px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
 
-            <button class="btn btn-light text-primary fw-bold"
+    /* MODAL */
+    .modal-header-custom {
+        background: var(--primary);
+        color: var(--light);
+    }
+
+    .modal-header-warning {
+        background: var(--accent);
+        color: white;
+    }
+
+    .modal-header-danger {
+        background: var(--edi);
+        color: var(--dark);
+    }
+    .text-primary-custom {
+        color: var(--primary)
+    }
+</style>
+
+<div class="container mt-4">
+
+    <div class="card card-custom">
+        <div class="header-custom">
+            <h5 class="fw-bold mb-0">Daftar Semua Kategori</h5>
+
+            <button class="btn btn-light text-primary-custom fw-bold"
                     data-bs-toggle="modal"
                     data-bs-target="#modalTambah">
                 + Tambah Kategori
             </button>
         </div>
+
         <div class="card-body px-4">
             <table id="kategoriTable" class="table table-bordered table-striped table-hover align-middle">
                 <thead>
@@ -87,7 +163,7 @@
                         <th>Icon</th>
                         <th>Nama</th>
                         <th>Background</th>
-                        <th>Aksi</th>
+                        <th width="150">Aksi</th>
                     </tr>
                 </thead>
 
@@ -98,46 +174,52 @@
                         <td>{{ $k->nama_kategori }}</td>
                         <td>
                             @if($k->background)
-                                <img src="{{ asset('asset/kategori/'.$k->background) }}" width="60" class="rounded">
+                                <img src="{{ asset('asset/kategori/'.$k->background) }}"
+                                     width="60" class="rounded shadow-sm">
                             @endif
                         </td>
                         <td>
-                            <div class="d-flex align-items-center gap-1">
-                                <!-- Edit -->
-                                <button class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#modalEdit{{ $k->id }}">
+                            <div class="d-flex gap-1 justify-content-center">
+                                <button class="btn btn-warning btn-sm"
+                                        data-bs-toggle="modal"
+                                        data-bs-target="#modalEdit{{ $k->id }}">
                                     Edit
                                 </button>
 
-                                <!-- Delete -->
-                                <button class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#modalDelete{{ $k->id }}">
+                                <button class="btn btn-danger btn-sm"
+                                        data-bs-toggle="modal"
+                                        data-bs-target="#modalDelete{{ $k->id }}">
                                     Hapus
                                 </button>
                             </div>
-
                         </td>
                     </tr>
 
                     <!-- Modal Edit -->
                     <div class="modal fade" id="modalEdit{{ $k->id }}">
                         <div class="modal-dialog">
-                            <form class="modal-content" action="{{ route('admin.kategori.update', $k->id) }}" method="POST" enctype="multipart/form-data">
+                            <form class="modal-content"
+                                  action="{{ route('admin.kategori.update', $k->id) }}"
+                                  method="POST" enctype="multipart/form-data">
+
                                 @csrf
-                                <div class="modal-header bg-warning">
+
+                                <div class="modal-header modal-header-warning">
                                     <h5>Edit Kategori</h5>
                                     <button class="btn-close" data-bs-dismiss="modal"></button>
                                 </div>
 
                                 <div class="modal-body">
-
                                     <label>Nama</label>
-                                    <input type="text" name="nama_kategori" value="{{ $k->nama_kategori }}" class="form-control mb-3">
+                                    <input type="text" name="nama_kategori"
+                                           value="{{ $k->nama_kategori }}" class="form-control mb-3">
 
                                     <label>Icon FontAwesome</label>
-                                    <input type="text" name="icon" value="{{ $k->icon }}" class="form-control mb-3">
+                                    <input type="text" name="icon"
+                                           value="{{ $k->icon }}" class="form-control mb-3">
 
                                     <label>Background (optional)</label>
                                     <input type="file" name="background" class="form-control mb-3">
-
                                 </div>
 
                                 <div class="modal-footer">
@@ -150,24 +232,21 @@
                     </div>
 
 
+                    <!-- Modal Delete -->
                     <div class="modal fade" id="modalDelete{{ $k->id }}" tabindex="-1">
                         <div class="modal-dialog modal-dialog-centered">
                             <div class="modal-content">
 
-                                <div class="modal-header bg-danger text-white">
+                                <div class="modal-header modal-header-danger">
                                     <h5 class="modal-title">Konfirmasi Penghapusan</h5>
-                                    <button type="button" class="btn-close btn-close-white"
+                                    <button type="button" class="btn-close"
                                             data-bs-dismiss="modal"></button>
                                 </div>
 
                                 <div class="modal-body text-center">
-                                    <p class="mb-3">
-                                        Apakah Anda yakin ingin menghapus kategori:
-                                    </p>
+                                    <p>Apakah Anda yakin ingin menghapus:</p>
 
-                                    <h5 class="fw-bold text-danger">
-                                        {{ $k->nama_kategori }}
-                                    </h5>
+                                    <h5 class="fw-bold text-danger">{{ $k->nama_kategori }}</h5>
 
                                     <p class="text-muted mt-2">
                                         Tindakan ini tidak dapat dibatalkan.
@@ -178,14 +257,16 @@
                                     <button class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
 
                                     <form action="{{ route('admin.kategori.delete', $k->id) }}" method="POST">
-                                        @method('DELETE')
                                         @csrf
+                                        @method('DELETE')
                                         <button class="btn btn-danger">Hapus Permanen</button>
                                     </form>
                                 </div>
+
                             </div>
                         </div>
                     </div>
+
                     @endforeach
                 </tbody>
             </table>
@@ -193,13 +274,14 @@
     </div>
 </div>
 
+
 <!-- Modal Tambah -->
 <div class="modal fade" id="modalTambah">
     <div class="modal-dialog">
         <form class="modal-content" action="{{ route('admin.kategori.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
 
-            <div class="modal-header bg-primary text-white">
+            <div class="modal-header modal-header-custom">
                 <h5>Tambah Kategori</h5>
                 <button class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
             </div>
@@ -209,7 +291,8 @@
                 <input type="text" name="nama_kategori" class="form-control mb-3" required>
 
                 <label>Icon FontAwesome</label>
-                <input type="text" name="icon" placeholder="fa-solid fa-book" class="form-control mb-3" required>
+                <input type="text" name="icon" placeholder="fa-solid fa-book"
+                       class="form-control mb-3" required>
 
                 <label>Background</label>
                 <input type="file" name="background" class="form-control mb-3" required>
@@ -223,22 +306,24 @@
         </form>
     </div>
 </div>
+
+
 <script>
 $(document).ready(function(){
     $('#kategoriTable').DataTable({
-        "pageLength": 8,
-        "ordering": true,
-        "info": true,
-        "responsive": true,
-        "columnDefs": [
-            { targets: [3], orderable: false }  // hanya disable kolom aksi
+        pageLength: 8,
+        ordering: true,
+        responsive: true,
+        columnDefs: [
+            { targets: [3], orderable: false }
         ],
-        "language": {
-            "search": "Cari Toko:",
-            "lengthMenu": "Tampilkan _MENU_ data",
-            "zeroRecords": "Data tidak ditemukan",
+        language: {
+            search: "Cari Kategori:",
+            lengthMenu: "Tampilkan _MENU_ data",
+            zeroRecords: "Data tidak ditemukan",
         }
     });
 });
 </script>
+
 @endsection

@@ -60,12 +60,9 @@
     }
 </style>
 <div class="container py-5">
-
     <h3 class="fw-bold mb-4">
         Hasil Pencarian: "{{ $keyword }}"
     </h3>
-
-    {{-- ================== TOKO ================== --}}
     <h4 class="fw-semibold mb-3">Toko</h4>
 
     <div class="row g-4 mb-5">
@@ -89,10 +86,6 @@
             <p class="text-muted">Tidak ada toko ditemukan.</p>
         @endforelse
     </div>
-
-
-
-    {{-- ================== PRODUK ================== --}}
     <h4 class="fw-semibold mb-3">Produk</h4>
 
     <div class="row g-4">

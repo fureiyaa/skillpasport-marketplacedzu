@@ -1,7 +1,5 @@
-@extends('template') {{-- kalau template berbeda, sesuaikan --}}
-
+@extends('template')
 @section('content')
-
 <style>
     :root {
         --primary: #202250;
@@ -94,11 +92,7 @@
 </style>
 
 <div class="container py-4">
-
-    {{-- FOTO + DETAIL PRODUK --}}
     <div class="row">
-
-        {{-- GALERI FOTO --}}
         <div class="col-md-6 mb-4">
             <div class="box mb-3">
                 @php $fotoUtama = $produk->gambar->first(); @endphp
@@ -117,7 +111,6 @@
             </div>
         </div>
 
-        {{-- INFORMASI PRODUK --}}
         <div class="col-md-6">
 
             <div class="box">
@@ -135,7 +128,6 @@
                     Stok: {{ $produk->stok }}
                 </span>
 
-                <!-- Info Toko -->
                 <div class="d-flex justify-content-between">
                     <div class="toko d-flex align-items-center mb-4">
                         <img src="{{ asset('asset/image/' . $produk->toko->gambar) }}"
@@ -154,18 +146,13 @@
 
                 </div>
 
-                <!-- Tombol WA -->
                 <a href="https://wa.me/{{ $produk->toko->kontak_toko }}?text=Halo,%20saya%20ingin%20bertanya%20tentang%20produk%20{{ urlencode($produk->nama_produk) }}"
                 target="_blank"
                 class="btn btn-success px-4 py-2 w-100 fw-semibold">
                     <i class="fa-brands fa-whatsapp me-2"></i> Hubungi Penjual
                 </a>
-
             </div>
-
-
         </div>
-
     </div>
 
 

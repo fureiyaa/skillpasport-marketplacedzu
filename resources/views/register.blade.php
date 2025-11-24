@@ -44,15 +44,11 @@
 
 <section class="login-section">
     <div class="login-card">
-
-        {{-- LOGO --}}
         <div class="text-center mb-3">
             <img src="{{ asset('asset/image/siswas.png') }}" height="80">
         </div>
 
         <h3 class="text-center login-title mb-4">Daftar Akun Baru</h3>
-
-        {{-- ERROR --}}
         @if ($errors->any())
             <div class="alert alert-danger">
                 <strong>Periksa kembali form anda:</strong>
@@ -63,8 +59,6 @@
                 </ul>
             </div>
         @endif
-
-        {{-- SUCCESS --}}
         @if (session('success'))
             <div class="alert alert-success">{{ session('success') }}</div>
         @endif

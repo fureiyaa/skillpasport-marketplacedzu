@@ -1,7 +1,6 @@
 @extends('template')
 
 @section('content')
-{{-- ===== CSS khusus halaman ini ===== --}}
 <style>
 :root {
         --primary: #202250;
@@ -61,13 +60,9 @@
     }
 </style>
 <div class="all-produk-page container py-5">
-
-    {{-- HEADER --}}
     <div class="d-flex justify-content-between align-items-center mb-4">
         <h2 class="fw-bold" style="color: var(--primary);">Semua Produk</h2>
     </div>
-
-    {{-- PRODUK GRID --}}
     <div class="row g-4">
         @foreach ($produk as $item)
         @php
@@ -95,7 +90,6 @@
         @endforeach
     </div>
 
-    {{-- PAGINATION --}}
     <div class="mt-4 d-flex justify-content-center">
         {{ $produk->links('pagination::bootstrap-5') }}
     </div>

@@ -2,44 +2,44 @@
 
 @section('content')
 <style>
-        .btn-primary {
-            background-color: var(--primary);
-            border-color: var(--primary);
-        }
-        .btn-primary:hover {
-            background-color: var(--edi);
-            color: var(--primary);
-            border-color: var(--edi);
-        }
+    :root {
+        --primary: #202250;
+        --secondary: #424769;
+        --accent: #7077A1;
+        --light: #F5DAD2;
+        --dark: #2A2A2A;
+        --success: #76817A;
+        --edi: #F6B17A;
+    }
+    .btn-primary {
+        background-color: var(--primary);
+        border-color: var(--primary);
+    }
+    .btn-primary:hover {
+        background-color: var(--edi);
+        color: var(--primary);
+        border-color: var(--edi);
+    }
 
-        .btn-outline-primary {
-            color: var(--primary);
-            border-color: var(--primary);
-        }
+    .btn-outline-primary {
+        color: var(--primary);
+        border-color: var(--primary);
+    }
 
-        .btn-outline-primary:hover {
-            background-color: var(--primary);
-            color: white;
-        }
+    .btn-outline-primary:hover {
+        background-color: var(--primary);
+        color: white;
+    }
 
-        .card {
-            border: none;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s;
-        }
+    .card {
+        border: none;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s;
+    }
 
-        .card:hover {
-            transform: translateY(-5px);
-        }
-                :root {
-            --primary: #202250;
-            --secondary: #424769;
-            --accent: #7077A1;
-            --light: #F5DAD2;
-            --dark: #2A2A2A;
-            --success: #76817A;
-            --edi: #F6B17A;
-        }
+    .card:hover {
+        transform: translateY(-5px);
+    }
 </style>
 <div class="all-toko-page container py-5">
     <div class="d-flex justify-content-between align-items-center mb-4">
@@ -80,8 +80,5 @@
             </div>
         </section>
     </div>
-    {{-- <div class="mt-4 d-flex justify-content-center">
-        {{ $toko->links('pagination::bootstrap-5') }}
-    </div> --}}
 
 @endsection

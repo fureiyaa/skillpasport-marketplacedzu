@@ -3,12 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Navbar ECI Style</title>
-
-  <!-- Bootstrap -->
+  <title>Navbar</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-
-  <!-- Font Awesome -->
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
 <style>
         /* ======== Top Bar ======== */
@@ -39,8 +35,6 @@
             top: 0;
             z-index: 1000;
         }
-
-        /* Efek saat discroll */
         .custom-navbar.scrolled {
             padding: 12px 0;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
@@ -83,7 +77,7 @@
             border-color: #7077A1;
         }
 
-        /* Tombol */
+        /* semua tombol */
         .btn-peach {
             background-color: #F6B17A;
             border: none;
@@ -118,7 +112,6 @@
 </head>
 
 <body>
-  <!-- ======== Top Bar ======== -->
   <div class="top-bar">
     <div class="container">
         <span>
@@ -131,22 +124,17 @@
     </div>
   </div>
 
-  <!-- ======== Navbar Section ======== -->
   <nav class="navbar navbar-expand-lg navbar-dark custom-navbar shadow-sm sticky-top">
     <div class="container-fluid px-4">
 
-      <!-- Logo -->
       <a class="navbar-brand d-flex align-items-center fw-bold" href="#">
         <img src="{{ asset('asset/image/siswas.png') }}" alt="ECI Logo" class="me-2" style="height: 50px;">
       </a>
-
-      <!-- Toggler -->
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarECI">
         <span class="navbar-toggler-icon"></span>
       </button>
 
       <div class="collapse navbar-collapse" id="navbarECI">
-        <!-- Search Bar -->
         <form action="{{ route('search') }}" method="GET" class="d-flex w-50 mx-auto">
           <input class="form-control search-input" name="search" type="search" placeholder="Cari produk atau toko..." aria-label="Search">
           <button class="btn btn-peach ms-2" type="submit">
@@ -154,7 +142,6 @@
           </button>
         </form>
 
-        <!-- Icons & Auth -->
         <ul class="navbar-nav ms-auto d-flex align-items-center">
           <li class="nav-item">
             <a href="/login" class="btn btn-outline-peach me-2">Masuk/Daftar Member</a>
@@ -166,7 +153,6 @@
 <div class="min-vh-100">
     @yield('content')
 </div>
-    <!-- Footer -->
     <footer class="footer">
         <div class="container">
             <div class="row">

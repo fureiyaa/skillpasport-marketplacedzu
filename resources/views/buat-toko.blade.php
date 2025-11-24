@@ -67,17 +67,11 @@
 </style>
 
 <div class="container">
-
     <div class="form-wrapper">
-
         <h3 class="form-title">Daftar Toko Baru</h3>
-
-        {{-- Pesan sukses --}}
         @if(session('success'))
             <div class="alert alert-success">{{ session('success') }}</div>
         @endif
-
-        {{-- Pesan error --}}
         @if ($errors->any())
             <div class="alert alert-danger">
                 <strong>Periksa kembali inputan Anda</strong>
@@ -118,9 +112,7 @@
         <div class="text-center mt-3">
             <a href="/" class="text-muted">← Kembali ke Beranda</a>
         </div>
-
     </div>
-
 </div>
 
 @endsection
