@@ -82,8 +82,13 @@
                         @endif
                     </div>
                 </div>
-                <div class="card-footer bg-white border-0 mb-3">
-                    <button class="btn btn-primary w-100"><i class="fa-brands fa-whatsapp me-2"></i>Pesan Via WhatsApp</button>
+                <div class="card-footer bg-white border-0">
+                    <?php
+                        $pesan = urlencode("Halo, saya ingin bertanya tentang produk $item->nama_produk");
+                    ?>
+                    <a href="https://wa.me/{{ $item->toko->kontak_toko }}?text={{ $pesan }}" target="_blank" class="btn btn-primary w-100">
+                        Pesan Via WhatsApp
+                    </a>
                 </div>
             </div>
         </div>

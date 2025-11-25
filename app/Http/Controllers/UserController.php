@@ -172,7 +172,6 @@ class UserController extends Controller
                             ->orderBy('id', 'DESC')
                             ->first();
 
-        // Produk toko
         $produk = $toko ? $toko->produk()->with('gambar')->get() : [];
 
         return view('member.kelola', compact('toko', 'produk', 'notif'));
@@ -188,26 +187,24 @@ class UserController extends Controller
 
     public function search(Request $request)
     {
-        $keyword = $request->search ?? $request->q ?? '';
+        $keyword = trim($request->search ?? '');
 
-        if (!$keyword) {
-            return view('search-result', [
-                'keyword' => '',
-                'produk' => collect(),
-                'toko' => collect(),
-            ]);
+        // Jika input kosong → kembali ke beranda
+        if ($keyword === '') {
+            return redirect()->route('home');
         }
 
-        // Cari produk
-        $produk = Produk::with('gambar', 'kategori')
-            ->where('nama_produk', 'like', "%$keyword%")
-            ->orWhere('deskripsi', 'like', "%$keyword%")
-            ->get();
+        // Jika input ada → jalankan pencarian
+        $produk = Produk::where('nama_produk', 'like', "%$keyword%")->get();
+        $toko = Toko::where('nama_toko', 'like', "%$keyword%")->get();
 
-        $toko = Toko::where('nama_toko', 'like', "%$keyword%")->orWhere('deskripsi', 'like', "%$keyword%")->get();
-
-        return view('search', compact('keyword', 'produk', 'toko'));
+        return view('search', [
+            'keyword' => $keyword,
+            'produk' => $produk,
+            'toko' => $toko
+        ]);
     }
+
 
 
 

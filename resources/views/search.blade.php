@@ -67,18 +67,29 @@
 
     <div class="row g-4 mb-5">
         @forelse ($toko as $item)
-        <div class="col-lg-3 col-md-4 col-6">
-            <div class="card text-center shadow-sm toko-card">
+        <div class="col-lg-3 col-md-6">
+            <div class="card text-center">
                 <div class="card-body">
-
                     <img src="{{ asset('asset/image/' . $item->gambar) }}"
-                         class="rounded-circle mb-3"
-                         style="width:80px;height:80px;object-fit:cover;">
+                        class="rounded-circle mb-3"
+                        alt="Toko"
+                        style="width: 80px; height: 80px; object-fit: cover;">
 
-                    <h5 class="fw-semibold">{{ $item->nama_toko }}</h5>
-                    <p class="text-muted">{{ Str::limit($item->deskripsi, 70) }}</p>
+                    <h5 class="card-title">{{ $item->nama_toko }}</h5>
 
-                    <a href="#" class="btn btn-outline-primary w-100">Kunjungi Toko</a>
+                    <p class="card-text text-muted" style="min-height: 60px;">
+                        {{ Str::limit($item->deskripsi, 70) }}
+                    </p>
+
+                    <div class="d-flex justify-content-center">
+                        <span class="badge bg-light text-dark me-2">
+                            <i class="bi bi-star-fill text-warning"></i> 4.8
+                        </span>
+                        <span class="badge bg-light text-dark">
+                            <i class="bi bi-bag-check"></i> {{ $item->produk->count() }} produk
+                        </span>
+                    </div>
+                    <a href="{{ route('toko.detail', $item->id) }}" class="btn btn-outline-primary mt-3">Kunjungi Toko</a>
                 </div>
             </div>
         </div>
@@ -95,7 +106,9 @@
         @endphp
         <div class="col-lg-3 col-md-4 col-6">
             <div class="card h-100">
-                <img src="{{ $img ? asset('asset/image/' . $img->nama_gambar) : asset('asset/image/placeholder.png') }}" class="card-img-top" alt="{{ $item->nama_produk }}"style="height: 300px; object-fit: cover;">
+                <a href="{{ route('produk.detail', $item->id) }}">
+                    <img src="{{ $img ? asset('asset/image/' . $img->nama_gambar) : asset('asset/image/placeholder.png') }}" class="card-img-top" alt="{{ $item->nama_produk }}"style="height: 300px; object-fit: cover;">
+                </a>
                 <div class="card-body">
                     <span class="badge badge-category mb-2">{{ $item->kategori->nama_kategori ?? 'Lainnya' }}</span>
                     <h5 class="card-title">{{ $item->nama_produk }}</h5> <div class="d-flex align-items-center">
@@ -105,8 +118,13 @@
                         @endif
                     </div>
                 </div>
-                <div class="card-footer bg-white border-0 mb-3">
-                    <button class="btn btn-primary w-100">Pesan Via WhatsApp</button>
+                <div class="card-footer bg-white border-0">
+                    <?php
+                        $pesan = urlencode("Halo, saya ingin bertanya tentang produk $item->nama_produk");
+                    ?>
+                    <a href="https://wa.me/{{ $item->toko->kontak_toko }}?text={{ $pesan }}" target="_blank" class="btn btn-primary w-100">
+                        Pesan Via WhatsApp
+                    </a>
                 </div>
             </div>
         </div>

@@ -251,9 +251,12 @@
                                     </div>
                                 </div>
                                 <div class="card-footer bg-white border-0">
-                                    <button class="btn btn-primary w-100">
+                                    <?php
+                                        $pesan = urlencode("Halo, saya ingin bertanya tentang produk $item->nama_produk");
+                                    ?>
+                                    <a href="https://wa.me/{{ $item->toko->kontak_toko }}?text={{ $pesan }}" target="_blank" class="btn btn-primary w-100">
                                         Pesan Via WhatsApp
-                                    </button>
+                                    </a>
                                 </div>
                             </div>
                         </div>
@@ -291,7 +294,7 @@
                                     <i class="bi bi-star-fill text-warning"></i> 4.8
                                 </span>
                                 <span class="badge bg-light text-dark">
-                                    <i class="bi bi-bag-check"></i> {{ rand(80, 500) }} produk
+                                    <i class="bi bi-bag-check"></i> {{ $item->produk->count() }} produk
                                 </span>
                             </div>
                             <a href="{{ route('toko.detail', $item->id) }}" class="btn btn-outline-primary mt-3">Kunjungi Toko</a>
