@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 
 class ProdukController extends Controller
 {
+    
     public function produk(Request $request)
     {
         $query = Produk::with(['kategori', 'gambar']);

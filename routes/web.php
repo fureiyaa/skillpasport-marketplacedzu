@@ -55,7 +55,6 @@ Route::middleware(['member'])->group(function () {
     Route::post('/member/produk/store', [UserController::class, 'produkStore'])->name('produk.store');
 
     Route::post('/member/produk/update/{id}', [UserController::class, 'updateProduk'])->name('produk.update');
-
     Route::post('/member/produk/delete/{id}', [UserController::class, 'produkDelete'])->name('produk.delete');
 });
 

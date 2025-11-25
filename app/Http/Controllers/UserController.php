@@ -48,8 +48,6 @@ class UserController extends Controller
         ]);
 
         $produk = Produk::findOrFail($id);
-
-        // update field
         $produk->update([
             'nama_produk' => $request->nama_produk,
             'harga' => $request->harga,
@@ -58,17 +56,13 @@ class UserController extends Controller
             'deskripsi' => $request->deskripsi,
         ]);
 
-        // jika upload gambar baru
         if ($request->hasFile('gambar')) {
-
-            // Hapus gambar lama
             foreach ($produk->gambar as $g) {
                 $path = public_path('asset/image/' . $g->nama_gambar);
                 if (file_exists($path)) unlink($path);
                 $g->delete();
             }
 
-            // upload gambar baru
             foreach ($request->file('gambar') as $file) {
                 $nama = time() . '_' . $file->getClientOriginalName();
                 $file->move(public_path('asset/image'), $nama);
@@ -99,7 +93,7 @@ class UserController extends Controller
         $produk = Produk::create([
             'nama_produk'    => $request->nama_produk,
             'harga'          => $request->harga,
-            'stok'           => $request->stok,        // ✔ stok ikut create
+            'stok'           => $request->stok,
             'deskripsi'      => $request->deskripsi,
             'kategori_id'    => $request->kategori_id,
             'toko_id'        => $toko->id,
@@ -166,8 +160,6 @@ class UserController extends Controller
     {
         $user = Auth::user();
         $toko = $user->toko;
-
-        // Ambil notifikasi milik user
         $notif = Notifikasi::where('user_id', $user->id)
                             ->orderBy('id', 'DESC')
                             ->first();
@@ -188,13 +180,9 @@ class UserController extends Controller
     public function search(Request $request)
     {
         $keyword = trim($request->search ?? '');
-
-        // Jika input kosong → kembali ke beranda
         if ($keyword === '') {
             return redirect()->route('home');
         }
-
-        // Jika input ada → jalankan pencarian
         $produk = Produk::where('nama_produk', 'like', "%$keyword%")->get();
         $toko = Toko::where('nama_toko', 'like', "%$keyword%")->get();
 

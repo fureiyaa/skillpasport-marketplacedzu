@@ -78,7 +78,8 @@ class DatabaseSeeder extends Seeder
             'deskripsi' => 'Menjual berbagai perlengkapan sekolah lengkap.',
             'kontak_toko' => '0811111111',
             'alamat' => 'Sekitar Sekolah',
-            'gambar' => 'toko.jpeg'
+            'gambar' => 'toko.jpeg',
+            'status' => 'approved'
         ]);
 
         $toko2 = Toko::create([
@@ -87,7 +88,8 @@ class DatabaseSeeder extends Seeder
             'deskripsi' => 'Menyediakan berbagai jasa dari siswa.',
             'kontak_toko' => '0822222222',
             'alamat' => 'Area Kantin',
-            'gambar' => 'toko.jpeg'
+            'gambar' => 'toko.jpeg',
+            'status' => 'approved'
         ]);
 
         $toko3 = Toko::create([
@@ -96,7 +98,8 @@ class DatabaseSeeder extends Seeder
             'deskripsi' => 'Aneka makanan dan minuman buatan siswa.',
             'kontak_toko' => '0833333333',
             'alamat' => 'Depan Lapangan',
-            'gambar' => 'toko.jpeg'
+            'gambar' => 'toko.jpeg',
+            'status' => 'approved'
         ]);
 
 
