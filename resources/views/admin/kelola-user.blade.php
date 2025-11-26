@@ -113,6 +113,7 @@
         background: var(--edi);
         color: var(--dark);
     }
+    .text-primary-custom
 </style>
 
 <div class="container mt-3">
@@ -124,7 +125,7 @@
         <div class="card-header modal-header-primary d-flex justify-content-between align-items-center">
             <h5 class="mb-0 fw-bold">Daftar Semua User</h5>
 
-            <button class="btn btn-light text-primary fw-bold"
+            <button class="btn btn-light text-primary-custom fw-bold"
                     data-bs-toggle="modal"
                     data-bs-target="#modalTambahUser">
                 + Tambah User

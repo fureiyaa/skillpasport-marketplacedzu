@@ -4,9 +4,19 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Navbar</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="{{asset('asset/bootstrap/css/bootstrap.min.css')}}" rel="stylesheet">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
 <style>
+    
+        :root {
+            --primary: #202250;
+            --secondary: #424769;
+            --accent: #7077A1;
+            --light: #F5DAD2;
+            --dark: #2A2A2A;
+            --success: #76817A;
+            --edi: #F6B17A;
+        }
         /* ======== Top Bar ======== */
         .top-bar {
             background-color: #1e213b;
@@ -119,7 +129,7 @@
         </span>
         <span>
           <i class="fa-solid fa-headset me-2"></i>
-          Customer Care 1500032 | Setiap Hari: 09:00–22:00
+          Customer Care 0831-1654-7901 | Setiap Hari: 09:00–22:00
         </span>
     </div>
   </div>
@@ -153,7 +163,7 @@
 <div class="min-vh-100">
     @yield('content')
 </div>
-    <footer class="footer">
+    <footer class="footer" style="background-color: #1e213b">
         <div class="container">
             <div class="row">
                 <div class="col-lg-4 mb-4">
@@ -165,25 +175,22 @@
                         <a href="#" class="text-light me-3"><i class="bi bi-facebook"></i></a>
                         <a href="#" class="text-light me-3"><i class="bi bi-instagram"></i></a>
                         <a href="#" class="text-light me-3"><i class="bi bi-twitter"></i></a>
-                        <a href="#" class="text-light"><i class="bi bi-whatsapp"></i></a>
+                        <a href="" class="text-light"><i class="bi bi-whatsapp"></i></a>
                     </div>
                 </div>
                 <div class="col-lg-2 col-6 mb-4">
                     <h5>Menu</h5>
                     <ul class="list-unstyled">
-                        <li><a href="#" class="text-light text-decoration-none">Beranda</a></li>
-                        <li><a href="#" class="text-light text-decoration-none">Produk</a></li>
-                        <li><a href="#" class="text-light text-decoration-none">Kategori</a></li>
-                        <li><a href="#" class="text-light text-decoration-none">Toko</a></li>
+                        <li><a href="/" class="text-light text-decoration-none">Beranda</a></li>
+                        <li><a href="/produk" class="text-light text-decoration-none">Produk</a></li>
+                        <li><a href="/toko" class="text-light text-decoration-none">Toko</a></li>
                     </ul>
                 </div>
                 <div class="col-lg-2 col-6 mb-4">
                     <h5>Bantuan</h5>
                     <ul class="list-unstyled">
-                        <li><a href="#" class="text-light text-decoration-none">Cara Belanja</a></li>
-                        <li><a href="#" class="text-light text-decoration-none">Cara Jualan</a></li>
-                        <li><a href="#" class="text-light text-decoration-none">FAQ</a></li>
-                        <li><a href="#" class="text-light text-decoration-none">Kontak</a></li>
+                        <li><a href="{{ route('cara.belanja') }}" class="text-light text-decoration-none">Cara Belanja</a></li>
+                        <li><a href="{{ route('cara.jualan') }}" class="text-light text-decoration-none">Cara Jualan</a></li>
                     </ul>
                 </div>
                 <div class="col-lg-4 mb-4">

@@ -17,6 +17,8 @@ Route::get('/toko', [TokoController::class, 'toko'])->name('toko.all');
 Route::get('/buat-toko', [TokoController::class, 'formToko'])->name('toko.form');
 Route::get('/detail/produk/{id}', [ProdukController::class, 'detail'])->name('produk.detail');
 Route::get('/toko/{id}', [TokoController::class, 'detail'])->name('toko.detail');
+Route::get('/cara-belanja', function () { return view('cara-belanja'); })->name('cara.belanja');
+Route::get('/cara-jualan', function () { return view('cara-jualan'); })->name('cara.jualan');
 
 
 

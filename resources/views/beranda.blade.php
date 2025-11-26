@@ -4,14 +4,10 @@
 <div class="homepage">
 
 <style>
-/* ============================================================
-   SCOPED CSS — HANYA BISA MENGUBAH ELEMEN DI DALAM .homepage
-   ============================================================ */
 .homepage {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-/* ---------------- BANNER ---------------- */
 .homepage-banner-wrapper {
     width: 100%;
     height: 600px;
